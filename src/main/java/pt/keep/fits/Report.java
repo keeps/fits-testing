@@ -286,7 +286,7 @@ public class Report {
 		            	
 		            	Cell cell = row.createCell(cellnum++);
 		                if(obj instanceof String){
-		                	if(gt!=null){
+		                	if(gt!=null && i>0){
 			                	if(((String)obj)==null || ((String)obj).trim().equals("")){
 			                		if(gt[i]==null || gt[i].trim().equals("")){
 			                			
