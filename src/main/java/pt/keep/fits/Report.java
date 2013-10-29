@@ -365,7 +365,7 @@ public class Report {
 			for (int i=0; i<rowNum; i++){
 				Row row = ws.getRow(i);
 				if(row != null && row.getCell(0)!=null){
-					if(row.getCell(0).getStringCellValue().equalsIgnoreCase(fileName)){
+					if(fileName.endsWith(row.getCell(0).getStringCellValue())){
 						t[0] = row.getCell(0)!=null?row.getCell(0).getStringCellValue():"";
 						t[1] = row.getCell(1)!=null?row.getCell(1).getStringCellValue():"";
 						t[2] = row.getCell(2)!=null?row.getCell(2).getStringCellValue():"";
@@ -423,3 +423,5 @@ public class Report {
 	}
 
 }
+
+
