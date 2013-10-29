@@ -6,11 +6,7 @@ This tool will allow to pass a FITS implementation by argument and test it again
 
 ## Build
 
-To build the application simply clone the project and execute the following Maven command.
-
-```bash
-$ mvn clean package
-```
+To build the application simply clone the project and execute the following Maven command: `mvn clean package`  
 The binary will appear at `target/fits-testing-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
 ## Use
