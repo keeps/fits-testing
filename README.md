@@ -50,6 +50,10 @@ These are test results that resulted from the execution of this tool against sev
 [check]: https://cdn1.iconfinder.com/data/icons/iconic/raster/2/check.png
 [cross]: https://cdn1.iconfinder.com/data/icons/iconic/raster/12/x.png
 
+![correct][check] Correct results (agree with ground truth)  
+![incorrect][cross] Incorrect results (disagree with ground truth)  
+**?** No results available, the FITS tool does not provide a result
+
 
 | Repository | Release | % Mime Type | % Pronom ID | # Features | % Validation | Results |
 |------------|---------|-----------|-----------|-------------|------------|---------|
@@ -58,8 +62,7 @@ These are test results that resulted from the execution of this tool against sev
 |[keeps](https://github.com/keeps/fits)|[keeps](https://github.com/keeps/fits/commit/2ec448c5146373963575ffcaf915e0191c0fc37c)||||||
 
 
-Test date: 2013-10-29
-
+Test date: 2013-10-29  
 Test environment:
 * Processor: Pentium Dual-Core CPU E6300 @ 2.80GHz x 2
 * Memory: 6.8 GB RAM (800 MHz)
