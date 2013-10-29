@@ -38,8 +38,8 @@ These are test results that resulted from the execution of this tool against sev
 * **%Mime**: the percentage of files from the corpora that were identified with the correct MIME type
 * **%PUID**: the percentage of files from the corpora that were identified with the correct Pronom ID
 * **#Features**: the average number of features extracted from each file of the corpora
-* **%Validation**: the percentage of correct validations of file formats in corpora
-* **Performance**: average processing time per file
+* **%Valid**: the percentage of correct validations of file formats in corpora
+* **Time**: average processing time per file
 * **Results**: a link to the results output
 
 [check]: https://cdn1.iconfinder.com/data/icons/iconic/raster/2/check.png
@@ -50,7 +50,7 @@ These are test results that resulted from the execution of this tool against sev
 **?** No results available, the FITS tool does not provide a result
 
 
-| Repository | Release | %Mime | %PUID | #Features | %Validation | Performance | Results |
+| Repository | Release | %Mime | %PUID | #Features | %Valid | Time | Results |
 |------------|---------|-------|-------|-----------|-------------|-------------|---------|
 |[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![valid][check] 100%|![valid][check] 28%|?|![correct][check] ??% ![incorrect][cross] ??% **?** 18% |||
 |[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)|||||||
