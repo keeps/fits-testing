@@ -39,19 +39,21 @@ Note that this command assumes you have downloaded the harvard-lts version of FI
 
 These are test results that resulted from the execution of this tool against several FITS versions.
 
-* Repository: the code repository that provides the FITS version
-* Release: the release or branch that identifies the code snapshot
-* % Mime type: the percentage of files from the corpora that were identified with the correct mime type
-* % Pronom ID: the percentage of files from the corpora that were identified with the correct Pronom ID
-* # Features: the average number of features extracted from each file of the corpora
-* % Validation: the percentage of correct validations of file formats in corpora
-* Results: a link to the results output
+* **Repository**: the code repository that provides the FITS version
+* **Release**: the release or branch that identifies the code snapshot
+* **% Mime type**: the percentage of files from the corpora that were identified with the correct mime type
+* **% Pronom ID**: the percentage of files from the corpora that were identified with the correct Pronom ID
+* **# Features**: the average number of features extracted from each file of the corpora
+* **% Validation**: the percentage of correct validations of file formats in corpora
+* **Results**: a link to the results output
 
 Test date: 2013-10-29
 
 | Repository | Release | % Mime Type | % Pronom ID | # Features | % Validation | Results |
 |------------|---------|-----------|-----------|-------------|------------|---------|
 |[harvard-lts](https://github.com/harvard-lts/fits)|master ([0a1cd57f22](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961))||||||
+|[openplanets](https://github.com/openplanets/fits)|gary-master ([7b0c2dd](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df))||||||
+|[keeps](https://github.com/keeps/fits)|keeps ([2ec448c514](https://github.com/keeps/fits/commit/2ec448c5146373963575ffcaf915e0191c0fc37c))||||||
 
 
 ## License
