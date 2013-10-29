@@ -47,18 +47,30 @@ These are test results that resulted from the execution of this tool against sev
 * **% Validation**: the percentage of correct validations of file formats in corpora
 * **Results**: a link to the results output
 
-Test date: 2013-10-29
-
 [check]: https://cdn1.iconfinder.com/data/icons/iconic/raster/2/check.png
 [cross]: https://cdn1.iconfinder.com/data/icons/iconic/raster/12/x.png
 
 
 | Repository | Release | % Mime Type | % Pronom ID | # Features | % Validation | Results |
 |------------|---------|-----------|-----------|-------------|------------|---------|
-|[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![valid][check] XX% ![invalid][cross] XX%|||||
+|[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![valid][check] 100%|![valid][check] 28%|?|![correct][check] ??% ![incorrect][cross] ??% **?** 18% ||
 |[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)||||||
 |[keeps](https://github.com/keeps/fits)|[keeps](https://github.com/keeps/fits/commit/2ec448c5146373963575ffcaf915e0191c0fc37c)||||||
 
+
+Test date: 2013-10-29
+
+Test environment:
+* Processor: Pentium Dual-Core CPU E6300 @ 2.80GHz x 2
+* Memory: 6.8 GB RAM (800 MHz)
+* Disk: 1TB SATA 7200 RPM
+* Operative system: Ubuntu 12.04.3 LTS
+* Java virtual machine: OpenJDK 1.6.0_27
+
+Corpora:
+* 48 files
+* Formats: Adobe Illustrator, Corel Draw, Microsoft Word, Excel and Powerpoint, Libre Office text, presentation and spreadsheet, Lotus Notes
+* Manually created ground truth available
 
 ## License
 
