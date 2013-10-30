@@ -20,10 +20,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -35,8 +38,8 @@ import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 
 public class Report {
-	
-	
+
+
 	public void run(String fitsDirectory, String corporaDirectory, String outputFile, String groundTruth) throws IOException, FitsException{
 		String osName = System.getProperty("os.name");
 		List<String> command;
@@ -46,9 +49,9 @@ public class Report {
 		}else{
 			command = new ArrayList<String>(Arrays.asList(fitsDirectory+"/fits.sh","-i"));
 		}
-		
+
 		Collection<File> files =  FileUtils.listFiles(new File(corporaDirectory), TrueFileFilter.TRUE, FileFilterUtils.makeSVNAware(null));
-		
+
 		Map<String, ExtensionStat> results = new TreeMap<String,ExtensionStat>();
 		Map<String, List<FileStat>> fileStats = new TreeMap<String,List<FileStat>>();
 		for(File f : files){
@@ -62,18 +65,18 @@ public class Report {
 				long begin = System.currentTimeMillis();
 				String fitsOutput = CommandUtility.execute(command);
 				long processingTime = System.currentTimeMillis() - begin;
-				
+
 				command.remove(f.getAbsolutePath());
 				fitsOutput = fitsOutput.substring(fitsOutput.indexOf("<?xml"));
-				
+
 				FitsOutput fitsOut = new FitsOutput(fitsOutput);
 
 				String mimeType = null;
 				String puid = null;
 				String format=null;
 				String valid=null;
-				
-				
+
+
 				if(fitsOut.checkValid()!=null){
 					if(fitsOut.checkValid()){
 						valid="true";
@@ -85,7 +88,7 @@ public class Report {
 				}
 				if(fitsOut.getIdentities()!=null && fitsOut.getIdentities().size()>0){
 					for(FitsIdentity fi : fitsOut.getIdentities()){
-						
+
 						if(mimeType==null && fi.getMimetype()!=null && fi.getMimetype().trim().length()>0){
 							mimeType = fi.getMimetype();
 						}
@@ -101,56 +104,11 @@ public class Report {
 						}
 					}
 				}
+
+
 				
-				
-				if(results.keySet().contains(extension)){
-					ExtensionStat es = results.get(extension);
-					es.setTotal(es.getTotal()+1);
-					if(puid!=null){
-						es.setWithPUID(es.getWithPUID()+1);
-					}
-					if(mimeType!=null){
-						es.setWithMimeType(es.getWithMimeType()+1);
-					}
-					if(valid!=null){
-						if(valid.equals("true")){
-							es.setValid(es.getValid()+1);
-						}else if(valid.equals("false")){
-							es.setNotValid(es.getNotValid()+1);
-						}else{
-							es.setUnknownValid(es.getUnknownValid()+1);
-						}
-					}
-					results.put(extension, es);
-				}else{
-					ExtensionStat es = new ExtensionStat();
-					es.setTotal(1);
-					es.setExtension(extension);
-					if(puid!=null){
-						es.setWithPUID(1);
-					}
-					if(mimeType!=null){
-						es.setWithMimeType(1);
-					}
-					if(valid!=null){
-						if(valid.equals("true")){
-							es.setValid(1);
-							es.setNotValid(0);
-							es.setUnknownValid(0);
-						}else if(valid.equals("false")){
-							es.setValid(0);
-							es.setNotValid(1);
-							es.setUnknownValid(0);
-						}else{
-							es.setValid(0);
-							es.setNotValid(0);
-							es.setUnknownValid(1);
-						}
-					}
-					results.put(extension, es);
-				}
-				
-				
+
+
 				FileStat fs = new FileStat();
 				fs.setName(f.getAbsolutePath());
 				fs.setMimetype(mimeType);
@@ -167,198 +125,262 @@ public class Report {
 					temp.add(fs);
 					fileStats.put(extension, temp);
 				}
+
+				String[] gt = null;
+				if(groundTruth!=null){
+					gt = getGroundTruth(groundTruth, f.getAbsolutePath());
+					fs.setGroundTruth(gt);
+				}
+
+				ExtensionStat es = new ExtensionStat();
+				if(results.keySet().contains(extension)){
+					es = results.get(extension);
+				}
+				es.setTotal(es.getTotal()+1);
+				
+				if(puid!=null){
+					es.setWithPUID(es.getWithPUID()+1);
+				}
+				if(mimeType!=null){
+					es.setWithMimeType(es.getWithMimeType()+1);
+				}
+				if(valid!=null){
+					if(valid.equals("true")){
+						es.setValid(es.getValid()+1);
+					}else if(valid.equals("false")){
+						es.setNotValid(es.getNotValid()+1);
+					}else{
+						es.setUnknownValid(es.getUnknownValid()+1);
+					}
+				}	
+				if(gt!=null){
+					if(!isEmpty(gt[1]) && !isEmpty(mimeType) && gt[1].equalsIgnoreCase(mimeType)){
+						es.setRightMimeTypeStatus(es.getRightMimeTypeStatus()+1);
+					}else if(!isEmpty(gt[1]) && !gt[1].equalsIgnoreCase(mimeType)){
+						es.setWrongMimeTypeStatus(es.getWrongMimeTypeStatus()+1);
+					}else{
+						es.setUnknownMimeTypeStatus(es.getUnknownMimeTypeStatus()+1);
+					}
+					if(!isEmpty(gt[2]) && !isEmpty(format) && gt[2].equalsIgnoreCase(format)){
+						es.setRightFormatStatus(es.getRightFormatStatus()+1);
+					}else if(!isEmpty(gt[2]) && !gt[2].equalsIgnoreCase(format)){
+						es.setWrongFormatStatus(es.getWrongFormatStatus()+1);
+					}else{
+						es.setUnknownFormatStatus(es.getUnknownFormatStatus()+1);
+					}
+					if(!isEmpty(gt[3]) && !isEmpty(puid) && gt[3].equalsIgnoreCase(puid)){
+						es.setRightPUIDStatus(es.getRightPUIDStatus()+1);
+					}else if(!isEmpty(gt[3]) && !gt[3].equalsIgnoreCase(puid)){
+						es.setWrongPUIDStatus(es.getWrongPUIDStatus()+1);
+					}else{
+						es.setUnknownPUIDStatus(es.getUnknownPUIDStatus()+1);
+					}
+					
+					if(!isEmpty(gt[4]) && !isEmpty(valid) && gt[4].equalsIgnoreCase(valid)){
+						es.setRightValidStatus(es.getRightValidStatus()+1);
+					}else if(!isEmpty(gt[4]) && !gt[4].equalsIgnoreCase(valid)){
+						es.setWrongValidStatus(es.getWrongValidStatus()+1);
+					}else{
+						es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+					}
+				}
+				results.put(extension, es);
+
+
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			
-			
+
+
 		}
-		
-		
+
+
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("Resume");
-		
+
 		int rownum = 0;
 		Row row = sheet.createRow(rownum++);
-		Object[] headers = {"Extension","Total","With mimetype","With puid","Valid","Not valid","Unknown valid"};
+		Object[] headers = {"Extension","# Files","% Mimetype OK","% Mimetype KO","% Mimetype ?","% PUID OK","% PUID KO","% PUID ?","% Valid OK","% Valid KO","% Valid ?"};
 		int cellnum = 0;
-		
+
 		for (Object obj : headers){
 			Cell cell = row.createCell(cellnum++);
 			if(obj instanceof String)
-                cell.setCellValue((String)obj);
-            else if(obj instanceof Integer)
-                cell.setCellValue((Integer)obj);
-        }
-		for(Map.Entry<String, ExtensionStat> entry : results.entrySet()){
-			row = sheet.createRow(rownum++);
-			//Object[] data = {entry.getKey(),entry.getValue().getTotal(),entry.getValue().getWithMimeType(),entry.getValue().getWithPUID(),entry.getValue().getValid(),entry.getValue().getNotValid(),entry.getValue().getUnknownValid()};
-			double withMimeTypePercent = ((double)entry.getValue().getWithMimeType()/entry.getValue().getTotal())*100.0;
-			double withPUIDPercent = ((double)entry.getValue().getWithPUID()/entry.getValue().getTotal())*100.0;
-			double validPercent = ((double)entry.getValue().getValid()/entry.getValue().getTotal())*100.0;
-			double notValidPercent = ((double)entry.getValue().getNotValid()/entry.getValue().getTotal())*100.0;
-			double unknownValidPercent = ((double)entry.getValue().getUnknownValid()/entry.getValue().getTotal())*100.0;
-			//Object[] data = {entry.getKey(),entry.getValue().getTotal(),(float)entry.getValue().getWithMimeType(),entry.getValue().getWithPUID(),entry.getValue().getValid(),entry.getValue().getNotValid(),entry.getValue().getUnknownValid()};
-			Object[] data = {entry.getKey(),entry.getValue().getTotal(),withMimeTypePercent,withPUIDPercent,validPercent,notValidPercent,unknownValidPercent};
-			cellnum = 0;
-            for (Object obj : data){
-            	Cell cell = row.createCell(cellnum++);
-                if(obj instanceof String)
-                     cell.setCellValue((String)obj);
-                 else if(obj instanceof Integer)
-                     cell.setCellValue((Integer)obj);
-                 else if(obj instanceof Double)
-                     cell.setCellValue((Double)obj);
-            }
+				cell.setCellValue((String)obj);
+			else if(obj instanceof Integer)
+				cell.setCellValue((Integer)obj);
 		}
 		
-		/*
+		
+		
+		
+		double totalWithRightMimeType = 0;
+		double totalWithWrongMimeType = 0;
+		double totalWithUnknownMimeType = 0;
+		double totalWithRightPUID = 0;
+		double totalWithWrongPUID = 0;
+		double totalWithUnknownPUID = 0;
+		double totalWithRightValidStatus = 0;
+		double totalWithWrongValidStatus = 0;
+		double totalWithUnknownValidStatus = 0;
+		double total=0;
+		
 		for(Map.Entry<String, ExtensionStat> entry : results.entrySet()){
 			row = sheet.createRow(rownum++);
-			double withMimeTypePercent = ((double)entry.getValue().getWithMimeType()/entry.getValue().getTotal())*100.0;
-			double withPUIDPercent = ((double)entry.getValue().getWithPUID()/entry.getValue().getTotal())*100.0;
-			double validPercent = ((double)entry.getValue().getValid()/entry.getValue().getTotal())*100.0;
-			double notValidPercent = ((double)entry.getValue().getNotValid()/entry.getValue().getTotal())*100.0;
-			double unknownValidPercent = ((double)entry.getValue().getUnknownValid()/entry.getValue().getTotal())*100.0;
-			//Object[] data = {entry.getKey(),entry.getValue().getTotal(),(float)entry.getValue().getWithMimeType(),entry.getValue().getWithPUID(),entry.getValue().getValid(),entry.getValue().getNotValid(),entry.getValue().getUnknownValid()};
-			Object[] data = {entry.getValue().getTotal(),withMimeTypePercent,withPUIDPercent,validPercent,notValidPercent,unknownValidPercent};
+			Object[] data = {
+				entry.getKey(),
+				entry.getValue().getTotal(),
+				((double)entry.getValue().getRightMimeTypeStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getWrongMimeTypeStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getUnknownMimeTypeStatus()/entry.getValue().getTotal())*100.0, 
+				((double)entry.getValue().getRightPUIDStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getWrongPUIDStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getUnknownPUIDStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getRightValidStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getWrongValidStatus()/entry.getValue().getTotal())*100.0,
+				((double)entry.getValue().getUnknownValidStatus()/entry.getValue().getTotal())*100.0
+			};
+			cellnum = 0;
+			for (Object obj : data){
+				Cell cell = row.createCell(cellnum++);
+				if(obj instanceof String)
+					cell.setCellValue((String)obj);
+				else if(obj instanceof Integer)
+					cell.setCellValue((Integer)obj);
+				else if(obj instanceof Double)
+					cell.setCellValue((Double)obj);
+				else if(obj instanceof HSSFRichTextString)
+					cell.setCellValue((HSSFRichTextString)obj);
+			}
+			
+			totalWithRightMimeType+=entry.getValue().getRightMimeTypeStatus();
+			totalWithWrongMimeType+=entry.getValue().getWrongMimeTypeStatus();
+			totalWithUnknownMimeType+=entry.getValue().getUnknownMimeTypeStatus();
+			totalWithRightPUID+=entry.getValue().getRightPUIDStatus();
+			totalWithWrongPUID+=entry.getValue().getWrongPUIDStatus();
+			totalWithUnknownPUID+=entry.getValue().getUnknownPUIDStatus();
+			totalWithRightValidStatus+=entry.getValue().getRightValidStatus();
+			totalWithWrongValidStatus+=entry.getValue().getWrongValidStatus();
+			totalWithUnknownValidStatus+=entry.getValue().getUnknownValidStatus();
+			total+=entry.getValue().getTotal();
+		}
+		row = sheet.createRow(rownum++);
+		Object[] totals = {
+			"",
+			total,
+			(totalWithRightMimeType/total)*100.0,
+			(totalWithWrongMimeType/total)*100.0,
+			(totalWithUnknownMimeType/total)*100.0, 
+			(totalWithRightPUID/total)*100.0,
+			(totalWithWrongPUID/total)*100.0,
+			(totalWithUnknownPUID/total)*100.0,
+			(totalWithRightValidStatus/total)*100.0,
+			(totalWithWrongValidStatus/total)*100.0,
+			(totalWithUnknownValidStatus/total)*100.0
+		};
+		cellnum = 0;
+		for (Object obj : totals){
+			Cell cell = row.createCell(cellnum++);
+			if(obj instanceof String)
+				cell.setCellValue((String)obj);
+			else if(obj instanceof Integer)
+				cell.setCellValue((Integer)obj);
+			else if(obj instanceof Double)
+				cell.setCellValue((Double)obj);
+			else if(obj instanceof HSSFRichTextString)
+				cell.setCellValue((HSSFRichTextString)obj);
+		}
 
-			cellnum = 0;
-            for (Object obj : data){
-            	Cell cell = row.createCell(cellnum++);
-                if(obj instanceof String)
-                     cell.setCellValue((String)obj);
-                 else if(obj instanceof Float)
-                     cell.setCellValue((Float)obj);
-                 else if(obj instanceof Integer)
-                     cell.setCellValue((Integer)obj);
-                 else if(obj instanceof Double)
-                     cell.setCellValue((Double)obj);
-            }
-		}
-		*/
-		
-		
 		for(Map.Entry<String, List<FileStat>> entry : fileStats.entrySet()){
 			Sheet sheetExtension = wb.createSheet(entry.getKey());
 			rownum = 0;
 			row = sheetExtension.createRow(rownum++);
 			Object[] headersFile = {"Name","Mimetype","Format","PUID","Valid","Processing time"};
 			cellnum = 0;
-			
+
 			for (Object obj : headersFile){
 				Cell cell = row.createCell(cellnum++);
 				if(obj instanceof String)
-	                cell.setCellValue((String)obj);
-	            else if(obj instanceof Integer)
-	                cell.setCellValue((Integer)obj);
-	            else if(obj instanceof Long)
-	                cell.setCellValue((Long)obj);
-	        }
-			
-			
-			
+					cell.setCellValue((String)obj);
+				else if(obj instanceof Integer)
+					cell.setCellValue((Integer)obj);
+				else if(obj instanceof Long)
+					cell.setCellValue((Long)obj);
+			}
+
 			CellStyle redStyle = wb.createCellStyle();
 			redStyle.setFillForegroundColor(HSSFColor.RED.index);  
 			redStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-	        
-	        CellStyle greenStyle = wb.createCellStyle();
-	        greenStyle.setFillForegroundColor(HSSFColor.GREEN.index);  
-	        greenStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
-			
-	        CellStyle yellowStyle = wb.createCellStyle();
-	        yellowStyle.setFillForegroundColor(HSSFColor.YELLOW.index);  
-	        yellowStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
 
-			
-	        
-	       
-				for(FileStat fs : entry.getValue()){
-					row = sheetExtension.createRow(rownum++);
-					Object[] data = {fs.getName(),fs.getMimetype(),fs.getFormat(),fs.getPuid(),fs.getValid(),fs.getProcessingTime()};
-					String[] gt = null;
-					 if(groundTruth!=null){
-						 gt = getGroundTruth(groundTruth, fs.getName());
-					 }
-					cellnum = 0;
-		            for (int i=0;i<data.length;i++){
-		            	Object obj = data[i];
-		            	
-		            	Cell cell = row.createCell(cellnum++);
-		                if(obj instanceof String){
-		                	if(gt!=null && i>0){
-			                	if(((String)obj)==null || ((String)obj).trim().equals("")){
-			                		if(gt[i]==null || gt[i].trim().equals("")){
-			                			
-			                		}else{
-			                			cell.setCellStyle(yellowStyle);
-			                		}
-			                	}else if(gt[i]==null || gt[i].trim().equals("")){
-			                		
-			                	}else if(((String)obj).equalsIgnoreCase(gt[i])){
-			                		cell.setCellStyle(greenStyle);
-			                	}else{
-			                		cell.setCellStyle(redStyle);
-			                	}
-		                	}
-		                    cell.setCellValue((String)obj);
-		                }else if(obj instanceof Long){
-		                	cell.setCellValue((Long)obj);
-		                }
-		                
-		            }
-	        }
-			
+			CellStyle greenStyle = wb.createCellStyle();
+			greenStyle.setFillForegroundColor(HSSFColor.GREEN.index);  
+			greenStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+
+			CellStyle yellowStyle = wb.createCellStyle();
+			yellowStyle.setFillForegroundColor(HSSFColor.YELLOW.index);  
+			yellowStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+
+
+
+
+			for(FileStat fs : entry.getValue()){
+				row = sheetExtension.createRow(rownum++);
+				Object[] data = {fs.getName(),fs.getMimetype(),fs.getFormat(),fs.getPuid(),fs.getValid(),fs.getProcessingTime()};
+				cellnum = 0;
+				for (int i=0;i<data.length;i++){
+					Object obj = data[i];
+
+					Cell cell = row.createCell(cellnum++);
+					if(obj instanceof String){
+						if(fs.getGroundTruth()!=null && i>0){
+							if(((String)obj)==null || ((String)obj).trim().equals("")){
+								if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equals("")){
+
+								}else{
+									cell.setCellStyle(yellowStyle);
+								}
+							}else if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equals("")){
+
+							}else if(((String)obj).equalsIgnoreCase(fs.getGroundTruth()[i])){
+								cell.setCellStyle(greenStyle);
+							}else{
+								cell.setCellStyle(redStyle);
+							}
+						}
+						cell.setCellValue((String)obj);
+					}else if(obj instanceof Long){
+						cell.setCellValue((Long)obj);
+					}
+
+				}
+			}
+
 		}
 
 
 
-		
-		
+
+
 		FileOutputStream fileOut = new FileOutputStream(outputFile);
 		wb.write(fileOut);
 		fileOut.close();
-		
-/*
- * 
-		
-		
-		Map<String, Object[]> data = new TreeMap<String, Object[]>();
-        data.put("1", new Object[] {"ID", "NAME", "LASTNAME"});
-        data.put("2", new Object[] {1, "Amit", "Shukla"});
-        data.put("3", new Object[] {2, "Lokesh", "Gupta"});
-        data.put("4", new Object[] {3, "John", "Adwards"});
-        data.put("5", new Object[] {4, "Brian", "Schultz"});
-          
-        //Iterate over data and write to sheet
-        Set<String> keyset = data.keySet();
-        int rownum = 0;
-        for (String key : keyset)
-        {
-            Row row = sheet.createRow(rownum++);
-            Object [] objArr = data.get(key);
-            int cellnum = 0;
-            for (Object obj : objArr)
-            {
-               Cell cell = row.createCell(cellnum++);
-               if(obj instanceof String)
-                    cell.setCellValue((String)obj);
-                else if(obj instanceof Integer)
-                    cell.setCellValue((Integer)obj);
-            }
-        }
-
-		
-		*/
 	}
+
 	
-	
+	private boolean isEmpty(String s){
+		if(s==null || s.trim().equals("")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	private String[] getGroundTruth(String groundFile, String fileName){
 		String[] t = new String[5];
 		try{
 			File excel = new File(groundFile);
 			FileInputStream fis = new FileInputStream(excel);
-		    
+
 			Workbook wb = new HSSFWorkbook(fis);
 			Sheet ws = wb.getSheetAt(0);
 			int rowNum = ws.getLastRowNum()+1;
@@ -375,9 +397,9 @@ public class Report {
 					}
 				}
 			}
-		
+
 		}catch(Exception e){
-			
+
 			e.printStackTrace();
 		}
 		return t;
@@ -386,9 +408,9 @@ public class Report {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("report", opts );
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		try{
 			Report r = new Report();
 			Options options = new Options();
@@ -402,7 +424,7 @@ public class Report {
 
 			CommandLineParser parser = new GnuParser();
 			CommandLine cmd = parser.parse(options, args);
-			
+
 			if(cmd.hasOption("h")) {
 				r.printHelp(options);
 				System.exit(0);
@@ -413,9 +435,9 @@ public class Report {
 				System.exit(0);
 			}
 			r.run(cmd.getOptionValue("f"), cmd.getOptionValue("d"), cmd.getOptionValue("o"),cmd.getOptionValue("g"));
-			
-			
-			
+
+
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}

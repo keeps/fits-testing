@@ -7,9 +7,16 @@ public class FileStat {
 	String valid;
 	String format;
 	long processingTime;
+	String[] groundTruth;
 	
 	
 	
+	public String[] getGroundTruth() {
+		return groundTruth;
+	}
+	public void setGroundTruth(String[] groundTruth) {
+		this.groundTruth = groundTruth;
+	}
 	public long getProcessingTime() {
 		return processingTime;
 	}
