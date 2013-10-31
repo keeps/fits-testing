@@ -49,8 +49,8 @@ These are test results that resulted from the execution of this tool against sev
 ![incorrect][cross] Incorrect results (disagree with ground truth)  
 **?** No results available, the FITS tool does not provide a result
 
-| Repository | Release | %Mime | %PUID | %Valid | Average features extracted | Time (ms) |
-|------------|---------|----------|----------|-----------|----------------------------|-----------|
+| Repository | Release | %Mime | %PUID | %Valid | Average features extracted | Time (ms) | Results |
+|------------|---------|----------|----------|-----------|----------------------------|-----------|-----------|
 |[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 167013 |[Results](results/harvard_31102013.xls)|
 |[openplanets](https://github.com/openplanets/fits)|[master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 164846 |[Results](results/openPlanets_31102013.xls)|
 |[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)|![correct][check] 25% ![incorrect][cross] 75% **?** 0%|![correct][check] 0% ![incorrect][cross] 95.8% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.4 | 105972 |[Results](results/gary_31102013.xls)|
