@@ -33,28 +33,20 @@ Note that this command assumes you have downloaded the harvard-lts version of FI
 
 These are test results that resulted from the execution of this tool against several FITS versions.
 
-* **Repository**: the code repository that provides the FITS version
-* **Release**: the release or branch that identifies the code snapshot
-* **%Mime**: the percentage of files from the corpora that were identified with the correct MIME type ( (#filesWithCorrectMimeType / #files) * 100)
-* **%PUID**: the percentage of files from the corpora that were identified with the correct Pronom ID ( (#filesWithCorrectPUID / #files) * 100)
-* **%Valid**: the percentage of files from the corpora that are valids ( (#validFiles / #files) * 100)
-* **Average features extracted**: the average number of features extracted from each file of the corpora ( (#featuresExtractedFromAllFiles / #files) * 100)
-* **Time**: Total processing time (ms)
-* **Results**: a link to the results output
-
-[check]: https://cdn1.iconfinder.com/data/icons/iconic/raster/2/check.png
-[cross]: https://cdn1.iconfinder.com/data/icons/iconic/raster/12/x.png
-
-![correct][check] Correct results (agree with ground truth)  
-![incorrect][cross] Incorrect results (disagree with ground truth)  
-**?** No results available, the FITS tool does not provide a result
-
-| Repository | Release | %Mime | %PUID | %Valid | Average features extracted | Time (ms) | Results |
-|------------|---------|----------|----------|-----------|----------------------------|-----------|-----------|
-|[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 167013 |[Results](results/harvard_31102013.xls)|
-|[openplanets](https://github.com/openplanets/fits)|[master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 164846 |[Results](results/openPlanets_31102013.xls)|
-|[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)|![correct][check] 25% ![incorrect][cross] 75% **?** 0%|![correct][check] 0% ![incorrect][cross] 95.8% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.4 | 105972 |[Results](results/gary_31102013.xls)|
-|[keeps](https://github.com/keeps/fits)|[master](https://github.com/keeps/fits/commit/07c7d0ba52b959cf6982f57ce2f4001d09d75f4d)|![correct][check] 37.5% ![incorrect][cross] 62.5% **?** 0%|![correct][check] 66.7% ![incorrect][cross] 9.2% **?** 4.1%|![correct][check] 10.4% ![incorrect][cross] 89.6% **?** 0%| 7.2 | 239971 |[Results](results/keeps_31102013.xls)|
+| | [harvard-lts](https://github.com/harvard-lts/fits) ( [master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961) ) | [openplanets](https://github.com/openplanets/fits) ( [master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51) ) | [openplanets](https://github.com/openplanets/fits) ( [gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df) ) | [keeps](https://github.com/keeps/fits) ( [master](https://github.com/keeps/fits/commit/8df8c8ac8cc22bcd112886a77b1f1cc496d07e89) )|
+| ---------------------------|-------|-------|-------|-------|
+| % MIME type valid | 35.4% | 35.4% | 25% | 37.5% |
+| % MIME type not valid | 64.6% | 64.6% | 75% | 62.5% |
+| % MIME type unknown | 0% | 0% | 0% | 0% |
+| % PUID valid | 33.3% | 33.3% | 0% | 66.7% |
+| % PUID not valid | 62.5% | 62.5% | 95.8% | 29.2% |
+| % PUID unknown | 4.2% | 4.2% | 4.2% | 4.1 |
+| % Valid | 18.75% | 18.75% | 18.75% | 10.4 |
+| % Not valid | 81.25% | 81.25% | 81.25% | 89.6 |
+| % Validity unknown | 0% | 0% | 0% | 0% |
+| Average features extracted | 8.3 | 8.3 | 8.4 | 8.8 |
+| Time (ms) | 167013 | 164846 | 105972 | 251062 |
+| Results | [Results](results/harvard_31102013.xls) | [Results](results/openPlanets_31102013.xls) | [Results](results/gary_31102013.xls) | [Results](results/keeps_31102013.xls) |
 
 Test date: 2013-10-31  
 Test environment:
