@@ -33,7 +33,7 @@ Note that this command assumes you have downloaded the harvard-lts version of FI
 
 These are test results that resulted from the execution of this tool against several FITS versions.
 
-| | [harvard-lts](https://github.com/harvard-lts/fits) ( [master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961) ) | [openplanets](https://github.com/openplanets/fits) ( [master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51) ) | [openplanets](https://github.com/openplanets/fits) ( [gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df) ) | [keeps](https://github.com/keeps/fits) ( [master](https://github.com/keeps/fits/commit/8df8c8ac8cc22bcd112886a77b1f1cc496d07e89) )|
+| | [harvard-lts](https://github.com/harvard-lts/fits)<br>( [master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961) ) | [openplanets](https://github.com/openplanets/fits)<br>( [master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51) ) | [openplanets](https://github.com/openplanets/fits)<br>( [gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df) ) | [keeps](https://github.com/keeps/fits)<br>( [master](https://github.com/keeps/fits/commit/8df8c8ac8cc22bcd112886a77b1f1cc496d07e89) )|
 | ---------------------------|-------|-------|-------|-------|
 | % MIME type valid | 35.4% | 35.4% | 25% | 37.5% |
 | % MIME type not valid | 64.6% | 64.6% | 75% | 62.5% |
