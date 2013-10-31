@@ -35,11 +35,11 @@ These are test results that resulted from the execution of this tool against sev
 
 * **Repository**: the code repository that provides the FITS version
 * **Release**: the release or branch that identifies the code snapshot
-* **%Mime**: the percentage of files from the corpora that were identified with the correct MIME type
-* **%PUID**: the percentage of files from the corpora that were identified with the correct Pronom ID
-* **#Features**: the average number of features extracted from each file of the corpora
-* **%Valid**: the percentage of correct validations of file formats in corpora
-* **Time**: average processing time per file
+* **%Mime**: the percentage of files from the corpora that were identified with the correct MIME type ( (#filesWithCorrectMimeType / #files) * 100)
+* **%PUID**: the percentage of files from the corpora that were identified with the correct Pronom ID ( (#filesWithCorrectPUID / #files) * 100)
+* **%Valid**: the percentage of files from the corpora that are valids ( (#validFiles / #files) * 100)
+* **Average features extracted**: the average number of features extracted from each file of the corpora ( (#featuresExtractedFromAllFiles / #files) * 100)
+* **Time**: Total processing time (ms)
 * **Results**: a link to the results output
 
 [check]: https://cdn1.iconfinder.com/data/icons/iconic/raster/2/check.png
@@ -49,19 +49,18 @@ These are test results that resulted from the execution of this tool against sev
 ![incorrect][cross] Incorrect results (disagree with ground truth)  
 **?** No results available, the FITS tool does not provide a result
 
+| Repository | Release | %Mime | %PUID | %Valid | Average features extracted | Time (ms) |
+|------------|---------|----------|----------|-----------|----------------------------|-----------|
+|[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 167013 |[Results](results/harvard_31102013.xls)|
+|[openplanets](https://github.com/openplanets/fits)|[master](https://github.com/openplanets/fits/commit/2ff3bc2dc06b05cb9bbbe6778eae80a36743cd51)|![correct][check] 35.4% ![incorrect][cross] 64.6% **?** 0%|![correct][check] 33.3% ![incorrect][cross] 62.5% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.3 | 164846 |[Results](results/openPlanets_31102013.xls)|
+|[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)|![correct][check] 25% ![incorrect][cross] 75% **?** 0%|![correct][check] 0% ![incorrect][cross] 95.8% **?** 4.2%|![correct][check] 18.75% ![incorrect][cross] 81.25% **?** 0%| 8.4 | 105972 |[Results](results/gary_31102013.xls)|
+|[keeps](https://github.com/keeps/fits)|[master](https://github.com/keeps/fits/commit/07c7d0ba52b959cf6982f57ce2f4001d09d75f4d)|![correct][check] 37.5% ![incorrect][cross] 62.5% **?** 0%|![correct][check] 66.7% ![incorrect][cross] 9.2% **?** 4.1%|![correct][check] 10.4% ![incorrect][cross] 89.6% **?** 0%| 7.2 | 239971 |[Results](results/keeps_31102013.xls)|
 
-| Repository | Release | %Mime | %PUID | #Features | %Valid | Time | Results |
-|------------|---------|-------|-------|-----------|-------------|-------------|---------|
-|[harvard-lts](https://github.com/harvard-lts/fits)|[master](https://github.com/harvard-lts/fits/commit/0a1cd57f22c24f1c8be7ab75607628058505b961)|![valid][check] 100%|![valid][check] 28%|?|![correct][check] ??% ![incorrect][cross] ??% **?** 18% |||
-|[openplanets](https://github.com/openplanets/fits)|[gary-master](https://github.com/openplanets/fits/commit/7b0c2dd4c23e0900192fbe4dd6802bfae59a13df)|||||||
-|[keeps](https://github.com/keeps/fits)|[keeps](https://github.com/keeps/fits/commit/2ec448c5146373963575ffcaf915e0191c0fc37c)|||||||
-
-
-Test date: 2013-10-29  
+Test date: 2013-10-31  
 Test environment:
-* Processor: Pentium Dual-Core CPU E6300 @ 2.80GHz x 2
-* Memory: 6.8 GB RAM (800 MHz)
-* Disk: 1TB SATA 7200 RPM
+* Processor: Intel® Core™ i5 CPU 650 @ 3.20GHz × 4
+* Memory: 7.7 GiB
+* Disk: Western Digital WD Black WD1002FAEX 1TB 7200 RPM 64MB Cache SATA 6.0Gb/s
 * Operative system: Ubuntu 12.04.3 LTS
 * Java virtual machine: OpenJDK 1.6.0_27
 
@@ -69,6 +68,11 @@ Corpora:
 * 48 files
 * Formats: Adobe Illustrator, Corel Draw, Microsoft Word, Excel and Powerpoint, Libre Office text, presentation and spreadsheet, Lotus Notes
 * Manually created ground truth available
+
+Notes:
+* The validation and features extraction results depends on the identification process. eg: Fits A identifies a file as a PDF. Fits A validates the file as a PDF and the features extracted are related to a PDF file.
+Fits B identifies the same file as a AI. Fits B can't validate the file.
+Fits A may get better results on validation and features extraction, but the results are wrong, because the identification is not correct.
 
 ## License
 
