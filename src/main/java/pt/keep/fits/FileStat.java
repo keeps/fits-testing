@@ -1,5 +1,8 @@
 package pt.keep.fits;
 
+import java.util.List;
+import java.util.Map;
+
 public class FileStat {
 	String name;
 	String mimetype;
@@ -8,9 +11,41 @@ public class FileStat {
 	String format;
 	long processingTime;
 	String[] groundTruth;
+	Map<String,String> features;
+	List<String> identificationTools;
+	List<String> validationTools;
+	List<String> extractionTools;
 	
 	
 	
+	
+	
+	
+	
+	public List<String> getIdentificationTools() {
+		return identificationTools;
+	}
+	public void setIdentificationTools(List<String> identificationTools) {
+		this.identificationTools = identificationTools;
+	}
+	public List<String> getValidationTools() {
+		return validationTools;
+	}
+	public void setValidationTools(List<String> validationTools) {
+		this.validationTools = validationTools;
+	}
+	public List<String> getExtractionTools() {
+		return extractionTools;
+	}
+	public void setExtractionTools(List<String> extractionTools) {
+		this.extractionTools = extractionTools;
+	}
+	public Map<String, String> getFeatures() {
+		return features;
+	}
+	public void setFeatures(Map<String, String> features) {
+		this.features = features;
+	}
 	public String[] getGroundTruth() {
 		return groundTruth;
 	}

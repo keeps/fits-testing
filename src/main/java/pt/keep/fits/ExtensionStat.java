@@ -22,6 +22,25 @@ public class ExtensionStat {
 	int unknownFormatStatus;
 	int unknownPUIDStatus;
 	int unknownMimeTypeStatus;
+	
+	long processingTime;
+	
+	double featuresExtracted;
+	
+	
+	
+	public long getProcessingTime() {
+		return processingTime;
+	}
+	public void setProcessingTime(long processingTime) {
+		this.processingTime = processingTime;
+	}
+	public double getFeaturesExtracted() {
+		return featuresExtracted;
+	}
+	public void setFeaturesExtracted(double featuresExtracted) {
+		this.featuresExtracted = featuresExtracted;
+	}
 	public String getExtension() {
 		return extension;
 	}

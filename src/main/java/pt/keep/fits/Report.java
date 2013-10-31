@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,6 +20,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -32,10 +34,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import pt.keep.fits.utils.CommandUtility;
+import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
+import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
 public class Report {
 
@@ -75,22 +79,18 @@ public class Report {
 				String puid = null;
 				String format=null;
 				String valid=null;
+				List<String> identificationTools = new ArrayList<String>();
+				List<String> validationTools = new ArrayList<String>();
+				List<String> extractionTools = new ArrayList<String>();
 
-
-				if(fitsOut.checkValid()!=null){
-					if(fitsOut.checkValid()){
-						valid="true";
-					}else{
-						valid="false";
-					}
-				}else{
-					valid="";
-				}
+				
+				
 				if(fitsOut.getIdentities()!=null && fitsOut.getIdentities().size()>0){
 					for(FitsIdentity fi : fitsOut.getIdentities()){
-
+						boolean used = false;
 						if(mimeType==null && fi.getMimetype()!=null && fi.getMimetype().trim().length()>0){
 							mimeType = fi.getMimetype();
+							used=true;
 						}
 						if(format==null && fi.getFormat()!=null && fi.getFormat().length()>0){
 							format = fi.getFormat();
@@ -99,13 +99,53 @@ public class Report {
 							if(ei.getName().toLowerCase().contains("puid")){
 								if(puid==null && ei.getValue()!=null && ei.getValue().length()>0){
 									puid = ei.getValue();
+									used=true;
+								}
+							}
+						}
+						if(used){
+							for(ToolInfo ti : fi.getReportingTools()){
+								if(!identificationTools.contains(ti.getName() + " ("+ti.getName()+")")){
+									identificationTools.add(ti.getName() + " ("+ti.getName()+")");
 								}
 							}
 						}
 					}
 				}
+				Map<String,String> features = new Hashtable<String, String>();
+				if(fitsOut.getTechMetadataElements()!=null){
+					for(FitsMetadataElement fme : fitsOut.getTechMetadataElements()){
+						if(!extractionTools.contains(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")")){
+							extractionTools.add(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")");
+						}
+						if(!features.containsKey(fme.getName())){
+							features.put(fme.getName(), fme.getValue());
+						}
+					}
+				}
+				if(fitsOut.getFileInfoElements()!=null){
+					for(FitsMetadataElement fme : fitsOut.getFileInfoElements()){
+						if(!extractionTools.contains(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")")){
+							extractionTools.add(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")");
+						}
+						if(!features.containsKey(fme.getName())){
+							features.put(fme.getName(), fme.getValue());
+						}
+					}
+				}
+				
+				valid="";
 
-
+				if(fitsOut.getFileStatusElements()!=null){
+					for(FitsMetadataElement fme : fitsOut.getFileStatusElements()){
+						if(fme.getName().equalsIgnoreCase("valid")){
+							valid = fme.getValue();
+						}
+						if(!validationTools.contains(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")")){
+							validationTools.add(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")");
+						}
+					}
+				}
 				
 
 
@@ -116,6 +156,10 @@ public class Report {
 				fs.setValid(valid);
 				fs.setFormat(format);
 				fs.setProcessingTime(processingTime);
+				fs.setFeatures(features);
+				fs.setExtractionTools(extractionTools);
+				fs.setIdentificationTools(identificationTools);
+				fs.setValidationTools(validationTools);
 				if(fileStats.keySet().contains(extension)){
 					List<FileStat> temp = fileStats.get(extension);
 					temp.add(fs);
@@ -138,6 +182,10 @@ public class Report {
 				}
 				es.setTotal(es.getTotal()+1);
 				
+				es.setProcessingTime(es.getProcessingTime()+fs.getProcessingTime());
+				
+				es.setFeaturesExtracted(es.getFeaturesExtracted()+fs.getFeatures().size());
+				
 				if(puid!=null){
 					es.setWithPUID(es.getWithPUID()+1);
 				}
@@ -145,14 +193,17 @@ public class Report {
 					es.setWithMimeType(es.getWithMimeType()+1);
 				}
 				if(valid!=null){
-					if(valid.equals("true")){
+					if(valid.equalsIgnoreCase("true")){
 						es.setValid(es.getValid()+1);
-					}else if(valid.equals("false")){
+					}else if(valid.equalsIgnoreCase("false")){
 						es.setNotValid(es.getNotValid()+1);
 					}else{
 						es.setUnknownValid(es.getUnknownValid()+1);
 					}
 				}	
+				
+				
+				
 				if(gt!=null){
 					if(!isEmpty(gt[1]) && !isEmpty(mimeType) && gt[1].equalsIgnoreCase(mimeType)){
 						es.setRightMimeTypeStatus(es.getRightMimeTypeStatus()+1);
@@ -200,7 +251,7 @@ public class Report {
 
 		int rownum = 0;
 		Row row = sheet.createRow(rownum++);
-		Object[] headers = {"Extension","# Files","% Mimetype OK","% Mimetype KO","% Mimetype ?","% PUID OK","% PUID KO","% PUID ?","% Valid OK","% Valid KO","% Valid ?"};
+		Object[] headers = {"Extension","# Files","% Mimetype OK","% Mimetype KO","% Mimetype ?","% PUID OK","% PUID KO","% PUID ?","% Valid OK","% Valid KO","% Valid ?","Average features extracted","Total processing time (ms)"};
 		int cellnum = 0;
 
 		for (Object obj : headers){
@@ -224,6 +275,8 @@ public class Report {
 		double totalWithWrongValidStatus = 0;
 		double totalWithUnknownValidStatus = 0;
 		double total=0;
+		long totalProcessingTime=0;
+		double totalFeaturesExtracted=0;
 		
 		for(Map.Entry<String, ExtensionStat> entry : results.entrySet()){
 			row = sheet.createRow(rownum++);
@@ -238,7 +291,9 @@ public class Report {
 				((double)entry.getValue().getUnknownPUIDStatus()/entry.getValue().getTotal())*100.0,
 				((double)entry.getValue().getRightValidStatus()/entry.getValue().getTotal())*100.0,
 				((double)entry.getValue().getWrongValidStatus()/entry.getValue().getTotal())*100.0,
-				((double)entry.getValue().getUnknownValidStatus()/entry.getValue().getTotal())*100.0
+				((double)entry.getValue().getUnknownValidStatus()/entry.getValue().getTotal())*100.0,
+				(entry.getValue().getFeaturesExtracted()/entry.getValue().getTotal()),
+				((double)entry.getValue().getProcessingTime())
 			};
 			cellnum = 0;
 			for (Object obj : data){
@@ -263,6 +318,8 @@ public class Report {
 			totalWithWrongValidStatus+=entry.getValue().getWrongValidStatus();
 			totalWithUnknownValidStatus+=entry.getValue().getUnknownValidStatus();
 			total+=entry.getValue().getTotal();
+			totalProcessingTime+=entry.getValue().getProcessingTime();
+			totalFeaturesExtracted+=entry.getValue().getFeaturesExtracted();
 		}
 		row = sheet.createRow(rownum++);
 		Object[] totals = {
@@ -276,7 +333,9 @@ public class Report {
 			(totalWithUnknownPUID/total)*100.0,
 			(totalWithRightValidStatus/total)*100.0,
 			(totalWithWrongValidStatus/total)*100.0,
-			(totalWithUnknownValidStatus/total)*100.0
+			(totalWithUnknownValidStatus/total)*100.0,
+			(totalFeaturesExtracted/total),
+			(totalProcessingTime)
 		};
 		cellnum = 0;
 		for (Object obj : totals){
@@ -287,15 +346,15 @@ public class Report {
 				cell.setCellValue((Integer)obj);
 			else if(obj instanceof Double)
 				cell.setCellValue((Double)obj);
-			else if(obj instanceof HSSFRichTextString)
-				cell.setCellValue((HSSFRichTextString)obj);
+			else if(obj instanceof Long)
+				cell.setCellValue((Long)obj);
 		}
 
 		for(Map.Entry<String, List<FileStat>> entry : fileStats.entrySet()){
 			Sheet sheetExtension = wb.createSheet(entry.getKey());
 			rownum = 0;
 			row = sheetExtension.createRow(rownum++);
-			Object[] headersFile = {"Name","Mimetype","Format","PUID","Valid","Processing time"};
+			Object[] headersFile = {"Name","Mimetype","Format","PUID","Valid","#Features extracted","Features extracted","Tools used for identification","Tools used for features extraction","Tools used for validation","Processing time (ms)"};
 			cellnum = 0;
 
 			for (Object obj : headersFile){
@@ -325,21 +384,21 @@ public class Report {
 
 			for(FileStat fs : entry.getValue()){
 				row = sheetExtension.createRow(rownum++);
-				Object[] data = {fs.getName(),fs.getMimetype(),fs.getFormat(),fs.getPuid(),fs.getValid(),fs.getProcessingTime()};
+				Object[] data = {fs.getName(),fs.getMimetype(),fs.getFormat(),fs.getPuid(),fs.getValid(),fs.getFeatures().size(),StringUtils.join(fs.getFeatures().keySet(), " / "),StringUtils.join(fs.getIdentificationTools(),","),StringUtils.join(fs.getExtractionTools(),","),StringUtils.join(fs.getValidationTools(),","), fs.getProcessingTime()};
 				cellnum = 0;
 				for (int i=0;i<data.length;i++){
 					Object obj = data[i];
 
 					Cell cell = row.createCell(cellnum++);
 					if(obj instanceof String){
-						if(fs.getGroundTruth()!=null && i>0){
-							if(((String)obj)==null || ((String)obj).trim().equals("")){
-								if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equals("")){
+						if(fs.getGroundTruth()!=null && i>0 && i<5){
+							if(((String)obj)==null || ((String)obj).trim().equalsIgnoreCase("")){
+								if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equalsIgnoreCase("")){
 
 								}else{
 									cell.setCellStyle(yellowStyle);
 								}
-							}else if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equals("")){
+							}else if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equalsIgnoreCase("")){
 
 							}else if(((String)obj).equalsIgnoreCase(fs.getGroundTruth()[i])){
 								cell.setCellStyle(greenStyle);
@@ -350,6 +409,10 @@ public class Report {
 						cell.setCellValue((String)obj);
 					}else if(obj instanceof Long){
 						cell.setCellValue((Long)obj);
+					}else if(obj instanceof Double){
+						cell.setCellValue((Double)obj);
+					}else if(obj instanceof Integer){
+						cell.setCellValue((Integer)obj);
 					}
 
 				}
@@ -368,7 +431,7 @@ public class Report {
 
 	
 	private boolean isEmpty(String s){
-		if(s==null || s.trim().equals("")){
+		if(s==null || s.trim().equalsIgnoreCase("")){
 			return true;
 		}else{
 			return false;
