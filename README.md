@@ -43,16 +43,14 @@ These are test results that resulted from the execution of this tool against sev
 | **% incorrect PUID**                    |   4.2% |   4.2% |     0% |  20.8% |
 | **% unknown PUID**                      |  70.8% |  70.8% |   100% |  12.5% |
 | **% correct validation<sup>2</sup>**    |   2.1% |   2.1% |   2.1% |   2.1% |
-| **% incorrect validation**              |     0% |     0% |     0% |     0% |
-| **% unknown validation**                |  33.3% |  33.3% |  22.9% |  64.6% |
-| **Avg. extracted features<sup>2</sup>** |    8.3 |    8.3 |    8.4 |    8.8 |
+| **% incorrect validation<sup>2</sup>**  |     0% |     0% |     0% |     0% |
+| **% unknown validation<sup>2</sup>**    |  33.3% |  33.3% |  22.9% |  64.6% |
+| **Avg. extracted features**             |    8.3 |    8.3 |    8.4 |    8.8 |
 | **Avg. exec. time (ms)**                |   3731 |   3692 |   2324 |   5609 |
 | **Results spreadsheet** | [download](results/harvard_01112013.xls) | [download](results/openPlanets_01112013.xls) | [download](results/gary_01112013.xls) | [download](results/keeps_01112013.xls) |
 
 <sup>1</sup> Correct result is one that agrees with the ground truth, incorrect result is one that disagrees with the ground truth, and unknown result is one where FITS gives no answer.  
-<sup>2</sup> The validation depends on the identification process. eg: Fits A identifies a file as a PDF. Fits A validates the file as a PDF and the features extracted are related to a PDF file.
-Fits B identifies the same file as a AI. Fits B can't validate the file.
-Fits A may get better results on validation but the results are wrong, because the identification is not correct. The validation results are only calculated when the mimetype or the PUID are correct (eg. %CorrectValidation=(#ValidFiles/#FilesWithCorrectMimeOrPUID)*100).
+<sup>2</sup> The validation depends on the identification process. A tool will try to validate a file against the format it has identified, so if the identification is wrong, the validation cannot be considered as correct. So we only count validations of correct identifications (of MIME type or PUID), but the result is divided by the total number of files. This is why the total number of correct, incorrect and unknown validations in not 100%.
 
 
 
