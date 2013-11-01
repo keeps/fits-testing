@@ -63,9 +63,12 @@ Test environment:
 * Java virtual machine: OpenJDK 1.6.0_27
 
 Corpora:
+* Provided [files](corpora/files) with manually created [ground truth](corpora/groundtruth.xls)
 * 48 files
-* Formats: Adobe Illustrator, Corel Draw, Microsoft Word, Excel and Powerpoint, Libre Office text, presentation and spreadsheet, Lotus Notes
-* Manually created ground truth available
+* Formats:
+ * Vector graphics: Adobe Illustrator, Corel Draw
+ * Text, spreasheet and presentation: Microsoft Word, Excel and Powerpoint, Libre Office text, presentation and spreadsheet
+ * Application data: Lotus Notes
 
 ## License
 
