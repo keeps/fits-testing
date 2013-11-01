@@ -50,13 +50,13 @@ These are test results that resulted from the execution of this tool against sev
 | **Results spreadsheet** | [download](results/harvard_01112013.xls) | [download](results/openPlanets_01112013.xls) | [download](results/gary_01112013.xls) | [download](results/keeps_01112013.xls) |
 
 <sup>1</sup> Correct result is one that agrees with the ground truth, incorrect result is one that disagrees with the ground truth, and unknown result is one where FITS gives no answer.  
-<sup>2</sup> The validation and features extraction results depends on the identification process. eg: Fits A identifies a file as a PDF. Fits A validates the file as a PDF and the features extracted are related to a PDF file.
+<sup>2</sup> The validation depends on the identification process. eg: Fits A identifies a file as a PDF. Fits A validates the file as a PDF and the features extracted are related to a PDF file.
 Fits B identifies the same file as a AI. Fits B can't validate the file.
-Fits A may get better results on validation and features extraction, but the results are wrong, because the identification is not correct.
+Fits A may get better results on validation but the results are wrong, because the identification is not correct. The validation results are only calculated when the mimetype or the PUID are correct (eg. %CorrectValidation=(#ValidFiles/#FilesWithCorrectMimeOrPUID)*100).
 
 
 
-Test date: 2013-10-31  
+Test date: 2013-11-01 
 Test environment:
 * Processor: Intel® Core™ i5 CPU 650 @ 3.20GHz × 4
 * Memory: 7.7 GiB
