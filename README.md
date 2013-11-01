@@ -67,7 +67,7 @@ Corpora:
 * 48 files
 * Formats:
  * Vector graphics: Adobe Illustrator, Corel Draw
- * Text, spreasheet and presentation: Microsoft Word, Excel and Powerpoint, Libre Office text, presentation and spreadsheet
+ * Text, spreadsheet and presentation: Microsoft Office and Libre Office
  * Application data: Lotus Notes
 
 ## License
