@@ -46,7 +46,7 @@ These are test results that resulted from the execution of this tool against sev
 | **% incorrect validation**              |     0% |     0% |     0% |     0% |
 | **% unknown validation**                |  33.3% |  33.3% |  22.9% |  64.6% |
 | **Avg. extracted features<sup>2</sup>** |    8.3 |    8.3 |    8.4 |    8.8 |
-| **Avg, exec. time (ms)**                |   3731 |   3692 |   2324 |   5609 |
+| **Avg. exec. time (ms)**                |   3731 |   3692 |   2324 |   5609 |
 | **Results spreadsheet** | [download](results/harvard_01112013.xls) | [download](results/openPlanets_01112013.xls) | [download](results/gary_01112013.xls) | [download](results/keeps_01112013.xls) |
 
 <sup>1</sup> Correct result is one that agrees with the ground truth, incorrect result is one that disagrees with the ground truth, and unknown result is one where FITS gives no answer.  
