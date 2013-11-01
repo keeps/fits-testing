@@ -27,8 +27,21 @@ public class ExtensionStat {
 	
 	double featuresExtracted;
 	
+	long correctlyIdentified;
 	
 	
+	
+	
+	
+	
+	
+	
+	public long getCorrectlyIdentified() {
+		return correctlyIdentified;
+	}
+	public void setCorrectlyIdentified(long correctlyIdentified) {
+		this.correctlyIdentified = correctlyIdentified;
+	}
 	public long getProcessingTime() {
 		return processingTime;
 	}

@@ -53,8 +53,8 @@ public class Report {
 		}else{
 			command = new ArrayList<String>(Arrays.asList(fitsDirectory+"/fits.sh","-i"));
 		}
-
-		Collection<File> files =  FileUtils.listFiles(new File(corporaDirectory), TrueFileFilter.TRUE, FileFilterUtils.makeSVNAware(null));
+		File corporaFolder = new File(corporaDirectory);
+		Collection<File> files =  FileUtils.listFiles(corporaFolder, TrueFileFilter.TRUE, FileFilterUtils.makeSVNAware(null));
 
 		Map<String, ExtensionStat> results = new TreeMap<String,ExtensionStat>();
 		Map<String, List<FileStat>> fileStats = new TreeMap<String,List<FileStat>>();
@@ -88,8 +88,12 @@ public class Report {
 				if(fitsOut.getIdentities()!=null && fitsOut.getIdentities().size()>0){
 					for(FitsIdentity fi : fitsOut.getIdentities()){
 						boolean used = false;
-						if(mimeType==null && fi.getMimetype()!=null && fi.getMimetype().trim().length()>0){
-							mimeType = fi.getMimetype();
+						if(mimeType==null && fi.getMimetype()!=null){
+							if(fi.getMimetype().trim().length()>0){
+								mimeType = fi.getMimetype();
+							}else{
+								mimeType="None";
+							}
 							used=true;
 						}
 						if(format==null && fi.getFormat()!=null && fi.getFormat().length()>0){
@@ -97,13 +101,23 @@ public class Report {
 						}
 						for(ExternalIdentifier ei : fi.getExternalIdentifiers()){
 							if(ei.getName().toLowerCase().contains("puid")){
-								if(puid==null && ei.getValue()!=null && ei.getValue().length()>0){
-									puid = ei.getValue();
+								if(puid==null && ei.getValue()!=null){
+									if(ei.getValue().length()>0){
+										puid = ei.getValue();
+									}else{
+										puid="None";
+									}
 									used=true;
 								}
 							}
 						}
 						if(used){
+							if(mimeType==null){
+								mimeType="";
+							}
+							if(puid==null){
+								puid="";
+							}
 							for(ToolInfo ti : fi.getReportingTools()){
 								if(!identificationTools.contains(ti.getName() + " ("+ti.getName()+")")){
 									identificationTools.add(ti.getName() + " ("+ti.getName()+")");
@@ -111,6 +125,12 @@ public class Report {
 							}
 						}
 					}
+				}
+				if(puid.equalsIgnoreCase("")){
+					puid=null;
+				}
+				if(mimeType.equalsIgnoreCase("")){
+					mimeType=null;
 				}
 				Map<String,String> features = new Hashtable<String, String>();
 				if(fitsOut.getTechMetadataElements()!=null){
@@ -150,7 +170,7 @@ public class Report {
 
 
 				FileStat fs = new FileStat();
-				fs.setName(f.getAbsolutePath());
+				fs.setName(f.getAbsolutePath().replace(corporaFolder.getAbsolutePath(), ""));
 				fs.setMimetype(mimeType);
 				fs.setPuid(puid);
 				fs.setValid(valid);
@@ -184,7 +204,7 @@ public class Report {
 				
 				es.setProcessingTime(es.getProcessingTime()+fs.getProcessingTime());
 				
-				es.setFeaturesExtracted(es.getFeaturesExtracted()+fs.getFeatures().size());
+				
 				
 				if(puid!=null){
 					es.setWithPUID(es.getWithPUID()+1);
@@ -200,40 +220,77 @@ public class Report {
 					}else{
 						es.setUnknownValid(es.getUnknownValid()+1);
 					}
-				}	
+				}else{
+					es.setUnknownValid(es.getUnknownValid()+1);
+				}
 				
 				
 				
 				if(gt!=null){
+					boolean mimeOK=false;
+					boolean mimeKO=false;
+					boolean mimeUnknown=false;
+					boolean puidOK=false;;
+					boolean puidKO=false;
+					boolean puidUnknown=false;
+					
 					if(!isEmpty(gt[1]) && !isEmpty(mimeType) && gt[1].equalsIgnoreCase(mimeType)){
 						es.setRightMimeTypeStatus(es.getRightMimeTypeStatus()+1);
-					}else if(!isEmpty(gt[1]) && !gt[1].equalsIgnoreCase(mimeType)){
+						mimeOK=true;
+					}else if(!isEmpty(gt[1]) && !isEmpty(mimeType) && !gt[1].equalsIgnoreCase(mimeType)){
 						es.setWrongMimeTypeStatus(es.getWrongMimeTypeStatus()+1);
+						mimeKO=true;
 					}else{
 						es.setUnknownMimeTypeStatus(es.getUnknownMimeTypeStatus()+1);
+						mimeUnknown=false;
 					}
 					if(!isEmpty(gt[2]) && !isEmpty(format) && gt[2].equalsIgnoreCase(format)){
 						es.setRightFormatStatus(es.getRightFormatStatus()+1);
-					}else if(!isEmpty(gt[2]) && !gt[2].equalsIgnoreCase(format)){
+					}else if(!isEmpty(gt[2]) && !isEmpty(format) && !gt[2].equalsIgnoreCase(format)){
 						es.setWrongFormatStatus(es.getWrongFormatStatus()+1);
 					}else{
 						es.setUnknownFormatStatus(es.getUnknownFormatStatus()+1);
 					}
 					if(!isEmpty(gt[3]) && !isEmpty(puid) && gt[3].equalsIgnoreCase(puid)){
 						es.setRightPUIDStatus(es.getRightPUIDStatus()+1);
-					}else if(!isEmpty(gt[3]) && !gt[3].equalsIgnoreCase(puid)){
+						puidOK=true;
+					}else if(!isEmpty(gt[3]) && !isEmpty(puid) && !gt[3].equalsIgnoreCase(puid)){
 						es.setWrongPUIDStatus(es.getWrongPUIDStatus()+1);
+						puidKO=true;
 					}else{
 						es.setUnknownPUIDStatus(es.getUnknownPUIDStatus()+1);
+						puidUnknown=true;
 					}
 					
-					if(!isEmpty(gt[4]) && !isEmpty(valid) && gt[4].equalsIgnoreCase(valid)){
-						es.setRightValidStatus(es.getRightValidStatus()+1);
-					}else if(!isEmpty(gt[4]) && !gt[4].equalsIgnoreCase(valid)){
-						es.setWrongValidStatus(es.getWrongValidStatus()+1);
+					
+					if(puidOK){
+						es.setCorrectlyIdentified(es.getCorrectlyIdentified()+1);
+						if(!isEmpty(gt[4]) && !isEmpty(valid) && gt[4].equalsIgnoreCase(valid)){
+							es.setRightValidStatus(es.getRightValidStatus()+1);
+						}else if(!isEmpty(gt[4]) && !isEmpty(valid) && !gt[4].equalsIgnoreCase(valid)){
+							es.setWrongValidStatus(es.getWrongValidStatus()+1);
+						}else{
+							es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+						}
+					}else if(puidKO){
+						//es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+					}else if(mimeOK){
+						es.setCorrectlyIdentified(es.getCorrectlyIdentified()+1);
+						if(!isEmpty(gt[4]) && !isEmpty(valid) && gt[4].equalsIgnoreCase(valid)){
+							es.setRightValidStatus(es.getRightValidStatus()+1);
+						}else if(!isEmpty(gt[4]) && !isEmpty(valid) && !gt[4].equalsIgnoreCase(valid)){
+							es.setWrongValidStatus(es.getWrongValidStatus()+1);
+						}else{
+							es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+						}
+					}else if(mimeKO){
+						//es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
 					}else{
-						es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+						//es.setUnknownValidStatus(es.getUnknownValidStatus()+1);
+						//es.setIdentificationNotWrong(es.getIdentificationNotWrong()+1);
 					}
+					es.setFeaturesExtracted(es.getFeaturesExtracted()+fs.getFeatures().size());
+					
 				}
 				results.put(extension, es);
 
@@ -251,7 +308,7 @@ public class Report {
 
 		int rownum = 0;
 		Row row = sheet.createRow(rownum++);
-		Object[] headers = {"Extension","# Files","% Mimetype OK","% Mimetype KO","% Mimetype ?","% PUID OK","% PUID KO","% PUID ?","% Valid OK","% Valid KO","% Valid ?","Average features extracted","Total processing time (ms)"};
+		Object[] headers = {"Extension","# Files","% Mimetype OK","% Mimetype KO","% Mimetype ?","% PUID OK","% PUID KO","% PUID ?","% Valid OK","% Valid KO","% Valid ?","Average features extracted","Average processing time (ms)"};
 		int cellnum = 0;
 
 		for (Object obj : headers){
@@ -289,11 +346,11 @@ public class Report {
 				((double)entry.getValue().getRightPUIDStatus()/entry.getValue().getTotal())*100.0,
 				((double)entry.getValue().getWrongPUIDStatus()/entry.getValue().getTotal())*100.0,
 				((double)entry.getValue().getUnknownPUIDStatus()/entry.getValue().getTotal())*100.0,
-				((double)entry.getValue().getRightValidStatus()/entry.getValue().getTotal())*100.0,
-				((double)entry.getValue().getWrongValidStatus()/entry.getValue().getTotal())*100.0,
-				((double)entry.getValue().getUnknownValidStatus()/entry.getValue().getTotal())*100.0,
+				entry.getValue().getCorrectlyIdentified()>0?((double)entry.getValue().getRightValidStatus()/entry.getValue().getCorrectlyIdentified())*100.0:0,
+				entry.getValue().getCorrectlyIdentified()>0?((double)entry.getValue().getWrongValidStatus()/entry.getValue().getCorrectlyIdentified())*100.0:0,
+				entry.getValue().getCorrectlyIdentified()>0?((double)entry.getValue().getUnknownValidStatus()/entry.getValue().getCorrectlyIdentified())*100.0:0,
 				(entry.getValue().getFeaturesExtracted()/entry.getValue().getTotal()),
-				((double)entry.getValue().getProcessingTime())
+				((double)entry.getValue().getProcessingTime()/entry.getValue().getTotal())
 			};
 			cellnum = 0;
 			for (Object obj : data){
@@ -335,7 +392,7 @@ public class Report {
 			(totalWithWrongValidStatus/total)*100.0,
 			(totalWithUnknownValidStatus/total)*100.0,
 			(totalFeaturesExtracted/total),
-			(totalProcessingTime)
+			(totalProcessingTime/total)
 		};
 		cellnum = 0;
 		for (Object obj : totals){
