@@ -54,7 +54,7 @@ These are test results that resulted from the execution of this tool against sev
 
 
 
-Test date: 2013-11-01 
+Test date: 2013-11-01  
 Test environment:
 * Processor: Intel® Core™ i5 CPU 650 @ 3.20GHz × 4
 * Memory: 7.7 GiB
