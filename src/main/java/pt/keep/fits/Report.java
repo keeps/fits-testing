@@ -21,6 +21,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -72,7 +74,7 @@ public class Report {
 
 				command.remove(f.getAbsolutePath());
 				fitsOutput = fitsOutput.substring(fitsOutput.indexOf("<?xml"));
-
+				
 				FitsOutput fitsOut = new FitsOutput(fitsOutput);
 
 				String mimeType = null;
@@ -530,7 +532,7 @@ public class Report {
 	}
 
 	public static void main(String[] args) {
-
+		Logger.getRootLogger().setLevel(Level.OFF);
 		try{
 			Report r = new Report();
 			Options options = new Options();
