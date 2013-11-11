@@ -1,2 +1,7 @@
 target/
 *~
+
+# ECLIPSE PROJECT FILES
+.classpath
+.settings/
+.project
