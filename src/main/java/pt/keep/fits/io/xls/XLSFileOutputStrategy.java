@@ -57,23 +57,24 @@ public class XLSFileOutputStrategy implements FileOutputStrategy {
 
     for ( Map.Entry<String, ExtensionStat> entry : results.entrySet() ) {
       row = sheet.createRow( rownum++ );
+      ExtensionStat stat = entry.getValue();
       Object[] data = {
           entry.getKey(),
           entry.getValue().getTotal(),
-          ((double) entry.getValue().getRightMimeTypeStatus() / entry.getValue().getTotal()) * 100.0,
-          ((double) entry.getValue().getWrongMimeTypeStatus() / entry.getValue().getTotal()) * 100.0,
-          ((double) entry.getValue().getUnknownMimeTypeStatus() / entry.getValue().getTotal()) * 100.0,
-          ((double) entry.getValue().getRightPUIDStatus() / entry.getValue().getTotal()) * 100.0,
-          ((double) entry.getValue().getWrongPUIDStatus() / entry.getValue().getTotal()) * 100.0,
-          ((double) entry.getValue().getUnknownPUIDStatus() / entry.getValue().getTotal()) * 100.0,
-          entry.getValue().getCorrectlyIdentified() > 0 ? ((double) entry.getValue().getRightValidStatus() / entry
-              .getValue().getCorrectlyIdentified()) * 100.0 : 0,
-          entry.getValue().getCorrectlyIdentified() > 0 ? ((double) entry.getValue().getWrongValidStatus() / entry
-              .getValue().getCorrectlyIdentified()) * 100.0 : 0,
-          entry.getValue().getCorrectlyIdentified() > 0 ? ((double) entry.getValue().getUnknownValidStatus() / entry
-              .getValue().getCorrectlyIdentified()) * 100.0 : 0,
-          (entry.getValue().getFeaturesExtracted() / entry.getValue().getTotal()),
-          ((double) entry.getValue().getProcessingTime() / entry.getValue().getTotal())
+          stat.metricInPercent( stat.getRightMimeTypeStatus() ),
+          stat.metricInPercent( stat.getWrongMimeTypeStatus() ),
+          stat.metricInPercent( stat.getUnknownMimeTypeStatus() ),
+          stat.metricInPercent( stat.getRightPUIDStatus() ),
+          stat.metricInPercent( stat.getWrongPUIDStatus() ),
+          stat.metricInPercent( stat.getUnknownPUIDStatus() ),
+          stat.getCorrectlyIdentified() > 0 ? ((double) stat.getRightValidStatus() / stat.getCorrectlyIdentified()) * 100.0
+              : 0,
+          stat.getCorrectlyIdentified() > 0 ? ((double) stat.getWrongValidStatus() / stat.getCorrectlyIdentified()) * 100.0
+              : 0,
+          stat.getCorrectlyIdentified() > 0 ? ((double) stat.getUnknownValidStatus() / stat.getCorrectlyIdentified()) * 100.0
+              : 0,
+          (stat.getFeaturesExtracted() / stat.getTotal()),
+          ((double) stat.getProcessingTime() / stat.getTotal())
       };
       cellnum = 0;
       for ( Object obj : data ) {
@@ -88,18 +89,18 @@ public class XLSFileOutputStrategy implements FileOutputStrategy {
           cell.setCellValue( (HSSFRichTextString) obj );
       }
 
-      totalWithRightMimeType += entry.getValue().getRightMimeTypeStatus();
-      totalWithWrongMimeType += entry.getValue().getWrongMimeTypeStatus();
-      totalWithUnknownMimeType += entry.getValue().getUnknownMimeTypeStatus();
-      totalWithRightPUID += entry.getValue().getRightPUIDStatus();
-      totalWithWrongPUID += entry.getValue().getWrongPUIDStatus();
-      totalWithUnknownPUID += entry.getValue().getUnknownPUIDStatus();
-      totalWithRightValidStatus += entry.getValue().getRightValidStatus();
-      totalWithWrongValidStatus += entry.getValue().getWrongValidStatus();
-      totalWithUnknownValidStatus += entry.getValue().getUnknownValidStatus();
-      total += entry.getValue().getTotal();
-      totalProcessingTime += entry.getValue().getProcessingTime();
-      totalFeaturesExtracted += entry.getValue().getFeaturesExtracted();
+      totalWithRightMimeType += stat.getRightMimeTypeStatus();
+      totalWithWrongMimeType += stat.getWrongMimeTypeStatus();
+      totalWithUnknownMimeType += stat.getUnknownMimeTypeStatus();
+      totalWithRightPUID += stat.getRightPUIDStatus();
+      totalWithWrongPUID += stat.getWrongPUIDStatus();
+      totalWithUnknownPUID += stat.getUnknownPUIDStatus();
+      totalWithRightValidStatus += stat.getRightValidStatus();
+      totalWithWrongValidStatus += stat.getWrongValidStatus();
+      totalWithUnknownValidStatus += stat.getUnknownValidStatus();
+      total += stat.getTotal();
+      totalProcessingTime += stat.getProcessingTime();
+      totalFeaturesExtracted += stat.getFeaturesExtracted();
     }
     row = sheet.createRow( rownum++ );
     Object[] totals = {

@@ -23,9 +23,11 @@ import org.apache.log4j.Logger;
 
 import pt.keep.fits.interfaces.FileOutputStrategy;
 import pt.keep.fits.interfaces.GroundTruthInputFileStrategy;
+import pt.keep.fits.io.csv.CSVFileOutputStrategy;
 import pt.keep.fits.io.csv.CSVGroundTruthInputFileStrategy;
 import pt.keep.fits.io.xls.XLSFileOutputStrategy;
 import pt.keep.fits.io.xls.XLSGroundTruthInputFileStrategy;
+import pt.keep.fits.utils.CommandException;
 import pt.keep.fits.utils.CommandUtility;
 import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
@@ -68,22 +70,24 @@ public class ReportBuilder {
     }
 
     GroundTruthInputFileStrategy xlsGTInputFileStrategy = new XLSGroundTruthInputFileStrategy();
-    GT_STRATEGIES.put( "", xlsGTInputFileStrategy ); // default
     GT_STRATEGIES.put( ".xls", xlsGTInputFileStrategy );
     GT_STRATEGIES.put( ".xlsx", xlsGTInputFileStrategy );
     GT_STRATEGIES.put( "xls", xlsGTInputFileStrategy );
     GT_STRATEGIES.put( "xlsx", xlsGTInputFileStrategy );
-    
+
     GroundTruthInputFileStrategy csvGTInputFileStrategy = new CSVGroundTruthInputFileStrategy();
-    GT_STRATEGIES.put( ".csv", csvGTInputFileStrategy);
-    GT_STRATEGIES.put( "csv", csvGTInputFileStrategy);
+    GT_STRATEGIES.put( ".csv", csvGTInputFileStrategy );
+    GT_STRATEGIES.put( "csv", csvGTInputFileStrategy );
 
     FileOutputStrategy xlsOutputFileStrategy = new XLSFileOutputStrategy();
-    FO_STRATEGIES.put( "", xlsOutputFileStrategy ); // default
     FO_STRATEGIES.put( ".xls", xlsOutputFileStrategy );
     FO_STRATEGIES.put( ".xlsx", xlsOutputFileStrategy );
     FO_STRATEGIES.put( "xls", xlsOutputFileStrategy );
     FO_STRATEGIES.put( "xlsx", xlsOutputFileStrategy );
+
+    FileOutputStrategy csvOutputStrategy = new CSVFileOutputStrategy();
+    FO_STRATEGIES.put( ".csv", csvOutputStrategy );
+    FO_STRATEGIES.put( "csv", csvOutputStrategy );
 
   }
 
@@ -120,7 +124,10 @@ public class ReportBuilder {
     mInputStrategy = GT_STRATEGIES.get( gtExt );
     mOutputStrategy = FO_STRATEGIES.get( outExt );
 
-    mInitialized = true;
+    if ( mInputStrategy != null && mOutputStrategy != null ) {
+      mInitialized = true;
+    }
+
   }
 
   public void run( String fitsDirectory, String corporaDirectory, String outputFile, String groundTruth )
@@ -146,7 +153,7 @@ public class ReportBuilder {
         long begin = System.currentTimeMillis();
         String fitsOutput = CommandUtility.execute( command );
         long processingTime = System.currentTimeMillis() - begin;
-        command.remove( f.getAbsolutePath() );
+        command.remove( f.getAbsolutePath() );        
 
         fitsOutput = fitsOutput.substring( fitsOutput.indexOf( "<?xml" ) );
 
@@ -366,7 +373,11 @@ public class ReportBuilder {
         }
         results.put( extension, es );
 
-      } catch ( Exception e ) {
+      } catch ( CommandException e ) {
+        e.printStackTrace();
+        System.out.println(e.getOutput());
+        command.remove( f.getAbsolutePath() ); // if the command crashes the path is never removed. 
+      } catch (Exception e) {
         e.printStackTrace();
       }
 

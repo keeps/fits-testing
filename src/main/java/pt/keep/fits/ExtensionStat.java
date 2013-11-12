@@ -169,6 +169,8 @@ public class ExtensionStat {
 		this.unknownMimeTypeStatus = unknownMimeTypeStatus;
 	}
 	
-	
+	public double metricInPercent(int metric) {
+	  return ((double) (metric / total)) * 100.0D;
+	}
 	
 }
