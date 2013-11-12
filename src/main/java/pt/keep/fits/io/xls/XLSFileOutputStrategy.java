@@ -1,4 +1,4 @@
-package pt.keep.fits.utils;
+package pt.keep.fits.io.xls;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -23,9 +23,10 @@ import org.apache.log4j.Logger;
 
 import pt.keep.fits.interfaces.FileOutputStrategy;
 import pt.keep.fits.interfaces.GroundTruthInputFileStrategy;
+import pt.keep.fits.io.csv.CSVGroundTruthInputFileStrategy;
+import pt.keep.fits.io.xls.XLSFileOutputStrategy;
+import pt.keep.fits.io.xls.XLSGroundTruthInputFileStrategy;
 import pt.keep.fits.utils.CommandUtility;
-import pt.keep.fits.utils.XLSFileOutputStrategy;
-import pt.keep.fits.utils.XLSGroundTruthInputFileStrategy;
 import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -72,6 +73,10 @@ public class ReportBuilder {
     GT_STRATEGIES.put( ".xlsx", xlsGTInputFileStrategy );
     GT_STRATEGIES.put( "xls", xlsGTInputFileStrategy );
     GT_STRATEGIES.put( "xlsx", xlsGTInputFileStrategy );
+    
+    GroundTruthInputFileStrategy csvGTInputFileStrategy = new CSVGroundTruthInputFileStrategy();
+    GT_STRATEGIES.put( ".csv", csvGTInputFileStrategy);
+    GT_STRATEGIES.put( "csv", csvGTInputFileStrategy);
 
     FileOutputStrategy xlsOutputFileStrategy = new XLSFileOutputStrategy();
     FO_STRATEGIES.put( "", xlsOutputFileStrategy ); // default
