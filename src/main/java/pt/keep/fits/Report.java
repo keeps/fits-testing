@@ -63,7 +63,7 @@ public class Report {
 		for(File f : files){
 			try{
 				System.out.println("Processing "+f.getAbsolutePath());
-				String extension = "N/A";
+				String extension = "NA";
 				if(f.getName().contains(".")){
 					extension = f.getName().substring(f.getName().lastIndexOf(".")+1).toLowerCase();
 				}
@@ -410,6 +410,7 @@ public class Report {
 		}
 
 		for(Map.Entry<String, List<FileStat>> entry : fileStats.entrySet()){
+			System.out.println("Sheet:" + entry.getKey());
 			Sheet sheetExtension = wb.createSheet(entry.getKey());
 			rownum = 0;
 			row = sheetExtension.createRow(rownum++);

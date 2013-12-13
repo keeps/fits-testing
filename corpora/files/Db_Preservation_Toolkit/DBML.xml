@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<db xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="dbml" exportDate="2013-11-18T17:57:08Z" productName="PostgreSQL" productVersion="9.1.10" schemaVersion="0.2">
+	<structure>
+		<table id="tablea" name="tablea">
+			<columns>
+			<column id="tablea.cola" name="cola" nillable="true">
+				<type originalTypeName="varchar">
+					<simpleTypeString length="2147483647" variableLegth="true"/>
+				</type>
+			</column>
+			<column id="tablea.colb" name="colb" nillable="true">
+				<type originalTypeName="int4">
+					<simpleTypeNumericExact precision="10" scale="0"/>
+				</type>
+			</column>
+			</columns>
+			<keys>
+			</keys>
+		</table>
+		<table id="tableb" name="tableb">
+			<columns>
+			<column id="tableb.cola" name="cola" nillable="true">
+				<type originalTypeName="date">
+					<simpleTypeDateTime timeDefined="false" timeZoneDefined="false"/>
+				</type>
+			</column>
+			<column id="tableb.colb" name="colb" nillable="true">
+				<type originalTypeName="bool">
+					<simpleTypeBoolean/>
+				</type>
+			</column>
+			</columns>
+			<keys>
+			</keys>
+		</table>
+	</structure>
+	<data>
+		<tableData id="tablea">
+			<row id="1">
+				<cell id="tablea.cola.1">
+					<s>AAA</s>
+				</cell>
+				<cell id="tablea.colb.1">
+					<s>1</s>
+				</cell>
+			</row>
+			<row id="2">
+				<cell id="tablea.cola.2">
+					<s>BBB</s>
+				</cell>
+				<cell id="tablea.colb.2">
+					<s>2</s>
+				</cell>
+			</row>
+		</tableData>
+		<tableData id="tableb">
+			<row id="1">
+				<cell id="tableb.cola.1">
+					<s>2010-01-01T00:00:00.00Z</s>
+				</cell>
+				<cell id="tableb.colb.1">
+					<s>true</s>
+				</cell>
+			</row>
+			<row id="2">
+				<cell id="tableb.cola.2">
+					<s>2013-01-01T00:00:00.00Z</s>
+				</cell>
+				<cell id="tableb.colb.2">
+					<s>false</s>
+				</cell>
+			</row>
+		</tableData>
+	</data>
+</db>

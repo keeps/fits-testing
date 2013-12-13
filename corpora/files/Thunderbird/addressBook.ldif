@@ -1,0 +1,153 @@
+dn: cn=Miguel Ferreira,mail=mferreira@keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName: Miguel
+sn: Ferreira
+cn: Miguel Ferreira
+mail: mferreira@keep.pt
+modifytimestamp: 1384869848
+
+dn:: Y249THXDrXMgTWlndWVsIEZlcnJvcyxtYWlsPWxtZmVycm9zQGtlZXAucHQ=
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName:: THXDrXMgTWlndWVs
+sn: Ferros
+cn:: THXDrXMgTWlndWVsIEZlcnJvcw==
+mail: lmferros@keep.pt
+modifytimestamp: 1384958046
+
+dn: mail=benficamania@gmail.com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: benficamania@gmail.com
+modifytimestamp: 1380273392
+
+dn: mail=sleroux@keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: sleroux@keep.pt
+modifytimestamp: 1381134238
+
+dn: mail=a44051@alunos.uminho.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: a44051@alunos.uminho.pt
+modifytimestamp: 0
+
+dn: mail=benficamania@yahoo.com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: benficamania@yahoo.com
+modifytimestamp: 0
+
+dn: mail=benficamania@outlook.com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: benficamania@outlook.com
+modifytimestamp: 1379713163
+
+dn: mail=retrievo-dev@groups.keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: retrievo-dev@groups.keep.pt
+modifytimestamp: 0
+
+dn: mail=jcr@keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: jcr@keep.pt
+modifytimestamp: 1383821511
+
+dn:: Y249Sm9zw6kgQXVndXN0byBBZm9uc28sbWFpbD1qb3NlLmFmb25zb0BkZWkudW1pbmhvLnB0
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName:: Sm9zw6kgQXVndXN0bw==
+sn: Afonso
+cn:: Sm9zw6kgQXVndXN0byBBZm9uc28=
+mail: jose.afonso@dei.uminho.pt
+modifytimestamp: 1381844278
+
+dn: cn=Vitor Fernandes,mail=vfernandes@keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName: Vitor
+sn: Fernandes
+cn: Vitor Fernandes
+mail: vfernandes@keep.pt
+modifytimestamp: 1384624557
+
+dn: mail=rrodrigues@keep.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: rrodrigues@keep.pt
+modifytimestamp: 1382376898
+
+dn: cn=Joana Dias,mail=jdias@ubi.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName: Joana
+sn: Dias
+cn: Joana Dias
+mail: jdias@ubi.pt
+modifytimestamp: 1382471747
+
+dn:: Y249SMOpbGRlciBTaWx2YSxtYWlsPWhzaWx2YUBrZWVwLnB0
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+givenName:: SMOpbGRlcg==
+sn: Silva
+cn:: SMOpbGRlciBTaWx2YQ==
+mail: hsilva@keep.pt
+modifytimestamp: 0
+
+dn: mail=contabilidade@bad.pt
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: mozillaAbPersonAlpha
+mail: contabilidade@bad.pt
+modifytimestamp: 0
+

@@ -1,0 +1,216 @@
+// <!-- <mdb:mork:z v="1.4"/> -->
+< <(a=c)> // (f=iso-8859-1)
+  (B8=charSetOverride)(B9=charSet)(BA=highestRecordedUID)
+  (BB=ns:msg:db:row:scope:pending:all)(BC=ns:msg:db:table:kind:pending)
+  (BD=dateReceived)(BE=ProtoThreadFlags)(BF=folderName)
+  (C0=ns:msg:db:row:scope:ops:all)(C1=ns:msg:db:table:kind:ops)
+  (C2=keywords)(C3=retainBy)(C4=daysToKeepHdrs)(C5=numHdrsToKeep)
+  (C6=daysToKeepBodies)(C7=keepUnreadOnly)(C8=useServerDefaults)
+  (C9=cleanupBodies)(CA=applyToFlaggedMessages)(CB=useServerRetention)
+  (CC=customSortCol)(CD=imageSize)(CE=junkscore)(CF=recipient_names)
+  (D0=storeToken)(D1=gloda-id)(D2=gloda-dirty)(D3=op)(D4=msgKey)
+  (D5=opFlags)(D6=newFlags)(D7=moveDest)(D8=account)(D9=pseudoHdr)
+  (DA=origURIs)(DB=queuedDisposition)(DC=X-Identity-Key)
+  (DD=notAPhishMessage)(DE=numDeletedHeaders)(DF=preview)(E0=sender_name)
+  (80=ns:msg:db:row:scope:msgs:all)(81=subject)(82=sender)(83=message-id)
+  (84=references)(85=recipients)(86=date)(87=size)(88=flags)(89=priority)
+  (8A=label)(8B=statusOfset)(8C=numLines)(8D=ccList)(8E=bccList)
+  (8F=msgThreadId)(90=threadId)(91=threadFlags)(92=threadNewestMsgDate)
+  (93=children)(94=unreadChildren)(95=threadSubject)(96=msgCharSet)
+  (97=ns:msg:db:table:kind:msgs)(98=ns:msg:db:table:kind:thread)
+  (99=ns:msg:db:table:kind:allthreads)
+  (9A=ns:msg:db:row:scope:threads:all)(9B=threadParent)(9C=threadRoot)
+  (9D=msgOffset)(9E=offlineMsgSize)
+  (9F=ns:msg:db:row:scope:dbfolderinfo:all)
+  (A0=ns:msg:db:table:kind:dbfolderinfo)(A1=numMsgs)(A2=numNewMsgs)
+  (A3=folderSize)(A4=expungedBytes)(A5=folderDate)(A6=highWaterKey)
+  (A7=mailboxName)(A8=UIDValidity)(A9=totPendingMsgs)
+  (AA=unreadPendingMsgs)(AB=expiredMark)(AC=version)
+  (AD=fixedBadRefThreading)(AE=onlineName)(AF=MRUTime)(B0=sortType)
+  (B1=sortOrder)(B2=viewFlags)(B3=viewType)(B4=sortColumns)
+  (B5=columnStates)(B6=highestModSeq)(B7=imapFlags)>
+<(95=2f)(91=4e31a141)(85=0)(80=1)>
+[1:m(^9C=2f)(^90=2f)(^92^91)(^91=0)(^93=1)]
+<(426=1ce)(424=527a6824)>[23:m(^9C=1ce)(^90=1ce)(^92^424)(^91=0)(^93=1)
+    (^94=1)]
+<(9C=46)(99=4e679888)>[2:m(^9C=46)(^90=46)(^92^99)(^91=0)(^93=1)]
+<(A5=11a)(A2=510a9d68)>[3:m(^9C^A5)(^90^A5)(^92^A2)(^91=0)(^93=1)]
+<(54F=1dd)(53A=1dc)>[30:m(^9C=1dd)(^90=1dc)(^92=0)(^91=0)(^93=0)(^94=0)]
+<(343=1c4)(34C=5264e27d)>[1A:m(^9C=1c4)(^90=1c4)(^92^34C)(^91=0)(^93=1)
+    (^94=0)]
+<(BC=1a9)(CA=522c7979)>[4:m(^9C^BC)(^90^BC)(^92^CA)(^91=0)(^93=1)(^94=0)]
+<(223=1b7)>[11:m(^9C=1b7)(^90=1b7)(^92=0)(^91=0)(^93=1)(^94=0)]
+<(3AA=1c8)(3A7=526ea19b)>[1D:m(^9C=1c8)(^90=1c8)(^92^3A7)(^91=0)(^93=1)
+    (^94=0)]
+
+<(42B=80)(C2==?ISO-8859-1?Q?S=E9bastien_Leroux?= <sleroux@keep.pt>)
+  (86=)(423=527A6824.7000404@keep.pt)(A3=ISO-8859-1)(425=4ed)(94=ffffffff)
+  (429=2e502e)(42A=3035182)(42C=543)(42D=26)(42E=2f03)(539
+    =223|S$C3$A9bastien Leroux)(437
+    =terms=(\); for i in "\$@" do terms+=("\$i"\) done convert -auto-orient -g\
+eometry \${terms[0]}x\${terms[1]} -border 1x1 "\${terms[2]}"[0] "\${terms[3]}"\
+ -- Cumprimentos, S$C3$A9bastien Leroux - - Concep$C3$A7$C3$A3o & desenvolvime\
+nto KEEP SOLUTIONS, LDA. Rua Rosalvo de A)>
+{1CE:^80 {(k^98:c)(s=9)23:m } [1CE(^88=80)(^8B=0)(^82^C2)(^85^C2)(^81=)
+    (^83^423)(^86^424)(^BD^424)(^89=1)(^96^A3)(^87=4ed)(^9B^94)(^8F=1ce)
+    (^BE=0)(^9D^429)(^D0^42A)(^9E=543)(^8C=26)(^D1^42E)(^C2=)(^8A=0)
+    (^CF^539)(^DF^437)]}
+
+<(AB=91)(8B=Sebastien Leroux <sleroux@keep.pt>)(8C
+    =fnaa-dev@googlegroups.com)(8E
+    ==?ISO-8859-1?Q?D=FAvidas_formas_autorizadas_de_nome?=)(8F
+    =4E31A141.9060705@keep.pt)(90
+    =<4E3181E6.7020209@keep.pt><B365144006C298479131162EC03469A651653 30F@DGAR\
+QEXC01.tt.pt><4E31864E.7090000@keep.pt><58599023ACC3F342962CD2F02AD F8E87515EE\
+4E7@DGARQEXC01.tt.pt><4E319232.70208@keep.pt> <B365144006C298479131162EC03469A\
+6516533B4@DGARQEXC01.tt.pt>)(92=9f43)(534=223|fnaa-dev@googlegroups.com)
+  (B3=ab21)(B4=43809)(B5=9f99)(B6=302)(B7=24a5)(96
+    =Funcionalidades =?UTF-8?B?aW1wb3J0YcOnw6NvL2V4cG9ydGHDp8OjbyAoZSA=?=$0D$0A\
+ =?UTF-8?B?ZmljaGVpcm9zIEV4Y2VsKQ==?=)(97=4E679888.6080501@keep.pt)
+  (98
+    =<CADaby9mARM0csKj1=vczv8avH_uuqD=sK6Z9hEvqbOhoRBO4Og@mail.gmail. com> <B7\
+22A5E05E935F47A1724F21B1757C926272A302@DGARQEXC01.tt.pt>)(9A=UTF-8)
+  (9B=99e5)(AC=9a3b)(AD=3b5)(B2=231b)(9E
+    ==?ISO-8859-1?Q?Bruno_Guimar=E3es_Mar=E7al?= <bruno.marcal@iscte.pt>)
+  (9F=[Retrievo-iscte] Retrievo ISCTE-IUL)(A0=510A9D68.90704@keep.pt)
+  (A1=<008e01cdffc6\$51a18600\$f4e49200\$@iscte.pt>)(A4=1090)(535
+    =223|Bruno Guimar$C3$A3es Mar$C3$A7al)(AE=39483)(AF=10e6)(B0=6b)
+  (B1=231a)(C3=Miguel Ferreira <mferreira@keep.pt>)(C4
+    ==?ISO-8859-1?Q?Lu=EDs_Miguel_Ferros?= <lmferros@keep.pt>)(C6
+    =Screenshots do moodle)(C7=522C7979.9070402@keep.pt)(C9
+    =<C550D8F8-E31E-46CC-B800-7C4D8CF19DFD@keep.pt>)(CD=61b)(C0=14aba)
+  (C1=84666)(CB=614)(536=223|Miguel Ferreira)(DE=2692)(21C
+    ="Miguel Ferreira" <mferreira@keep.pt>)(21D
+    ==?iso-8859-1?Q?Lu=EDs_Miguel_Ferros?= <lmferros@keep.pt>)(1FD
+    =TAB html)(21F=000601ceb6c5\$87d52b30\$977f8190\$@Domain)(220
+    =<779E98D8-F06A-4CBC-B0D0-8AB254641B8E@keep.pt> <523CBBF5.6050409@keep.pt>\
+ <5D878588-D61C-4CC2-B0DF-E23B35EAAB27@keep.pt>)(221=523d91c4)(222=d58d)
+  (238=433e9)(239=275433)(23B=d5e3)(23C=4ac)(230=2)(537
+    =223|"Miguel Ferreira")(3B3=10000081)(349
+    ==?ISO-8859-1?Q?C=F3digos_excel?=)(34A=5264E27D.7050204@keep.pt)
+  (351=248d6f)(347=54117)(348=344343)(34E=248d68)(356=2a6d)(357
+    =Aquilo tem mesmo coisas b$C3$A1sicas (atualizar c$C3$A9lulas, etc...\). A\
+ parte mais importante est$C3$A1 na m$C3$A1quina virtual deles. -- Cumprimento\
+s, S$C3$A9bastien Leroux - - Concep$C3$A7$C3$A3o & desenvolvimento KEEP SOLUTI\
+ONS, LDA. Rua Rosalvo de Almeida, n$C2$BA 5 4710-429 Brag)(3A4
+    =lfaria@keep.pt)(3A5=fits.jar)(3A6=526EA19B.1080903@keep.pt)(3A9=41156)
+  (3AC=2a0939)(3AD=2754873)(3AE=411ac)(3AF=e23)(3B0=2c61)(538
+    =223|lfaria@keep.pt)>
+{1:^80 {(k^97:c)(s=9)} 
+  [2F(^88=91)(^8B=0)(^82^8B)(^85^8C)(^81^8E)(^83^8F)(^84^90)(^86^91)
+    (^BD^91)(^89=1)(^87^92)(^9B^94)(^8F=2f)(^BE=0)(^C2=)(^8A=0)(^CF^534)
+    (^9D^B3)(^D0^B4)(^9E^B5)(^8C^B6)(^D1^B7)]
+  [46(^88=91)(^8B=0)(^82^8B)(^85^8C)(^81^96)(^83^97)(^84^98)(^86^99)
+    (^BD^99)(^89=1)(^96^9A)(^87^9B)(^9B^94)(^8F=46)(^BE=0)(^C2=)(^8A=0)
+    (^CF^534)(^9D=0)(^D0=0)(^9E^AC)(^8C^AD)(^D1^B2)]
+  [11A(^88=91)(^8B=0)(^82^8B)(^85^9E)(^81^9F)(^83^A0)(^84^A1)(^86^A2)
+    (^BD^A2)(^89=1)(^96^A3)(^87^A4)(^9B^94)(^8F^A5)(^BE=0)(^C2=)(^8A=0)
+    (^CF^535)(^9D^AC)(^D0^AE)(^9E^AF)(^8C=6b)(^D1^B1)]
+  [1A9(^88=91)(^8B=0)(^82^C2)(^85^C3)(^8D^C4)(^81^C6)(^83^C7)(^84^C9)
+    (^86^CA)(^BD^CA)(^96^A3)(^9E^CD)(^9D^C0)(^D0^C1)(^89=1)(^87^CB)
+    (^9B^94)(^8F^BC)(^BE=0)(^CF^536)(^C2=)(^8A=0)(^D2=0)(^D1^DE)]
+  [1B7(^88=91)(^8B=0)(^85^21C)(^8D^21D)(^81^1FD)(^83^21F)(^84^220)(^86^221)
+    (^BD=0)(^89=1)(^87^222)(^9B^94)(^8F=1b7)(^BE=0)(^9D^238)(^D0^239)
+    (^9E^23B)(^8C=4ac)(^C2=)(^8A=0)(^D1=2)(^CF^537)]
+  [1C4(^88^3B3)(^8B=0)(^82^C2)(^85^C3)(^81^349)(^83^34A)(^86^34C)(^BD^34C)
+    (^9E^351)(^9D^347)(^D0^348)(^89=1)(^87^34E)(^9B^94)(^8F=1c4)(^BE=0)
+    (^D1^356)(^C2=)(^8A=0)(^DF^357)(^CF^536)(^D2=0)]
+  [1C8(^88^3B3)(^8B=0)(^82^C2)(^85^3A4)(^81^3A5)(^83^3A6)(^86^3A7)(^BD^3A7)
+    (^89=1)(^87^3A9)(^9B^94)(^8F=1c8)(^BE=0)(^9D^3AC)(^D0^3AD)(^9E^3AE)
+    (^8C=e23)(^D1^3B0)(^C2=)(^8A=0)(^DF=)(^CF^538)(^D2=0)]1CE }
+{1C4:^80 {(k^98:c)(s=9)1A:m } 1C4 }
+{2F:^80 {(k^98:c)(s=9)1:m } 2F }
+{46:^80 {(k^98:c)(s=9)2:m } 46 }
+{1C8:^80 {(k^98:c)(s=9)1D:m } 1C8 }
+{1A9:^80 {(k^98:c)(s=9)4:m } 1A9 }
+{11A:^80 {(k^98:c)(s=9)3:m } 11A }
+{1B7:^80 {(k^98:c)(s=9)11:m } 1B7 }
+{FFFFFFFD:^9A {(k^99:c)(s=9)} [2F(^95^8E)]
+  [46(^95^96)]
+  [11A(^95^9F)]
+  [1B7(^95^1FD)]
+  [1C8(^95^3A5)]
+  [1CE(^95=)]}
+
+<(81=Drafts)(82=8082414)(54D=1384869418)(84=12)(533
+    ={"threadCol":{"visible":true,"ordinal":"1"},"flaggedCol":{"visible":true,\
+"ordinal":"3"},"attachmentCol":{"visible":true,"ordinal":"5"},"subjectCol":{"v\
+isible":true,"ordinal":"7"},"unreadButtonColHeader":{"visible":true,"ordinal":\
+"9"},"senderCol":{"visible":false,"ordinal":"11"},"recipientCol":{"visible":tr\
+ue,"ordinal":"13"},"junkStatusCol":{"visible":true,"ordinal":"15"},"receivedCo\
+l":{"visible":false,"ordinal":"17"},"dateCol":{"visible":true,"ordinal":"19"},\
+"statusCol":{"visible":false,"ordinal":"21"},"sizeCol":{"visible":false,"ordin\
+al":"23"},"tagsCol":{"visible":false,"ordinal":"25"},"accountCol":{"visible":f\
+alse,"ordinal":"27"},"priorityCol":{"visible":false,"ordinal":"29"},"unreadCol\
+":{"visible":false,"ordinal":"31"},"totalCol":{"visible":false,"ordinal":"33"}\
+,"locationCol":{"visible":false,"ordinal":"35"},"idCol":{"visible":false,"ordi\
+nal":"37"}})(531=1130)(89=ee00)(8A=4ce414a8)(427=8)(55A=2d0eeb)(55B=28)>
+{1:^9F {(k^A0:c)(s=9)} 
+  [1(^AC=1)(^AD=1)(^AE^81)(^88^82)(^A7^81)(^AF^54D)(^B0=12)(^B1=1)(^B2=0)
+    (^B3=0)(^B4=)(^B5^533)(^B6^531)(^B7^89)(^A8^8A)(^BA=1dc)(^A1=8)
+    (^A6=1dd)(^CB=1)(^A9=1)(^A4^55A)(^AA=0)(^A2=1)(^DE=28)]}
+
+<(552=528B6F55.7000900@keep.pt)(540=Pubmedcentral)(543
+    =<045BE5BD-D379-4C98-A975-EC3B6B4137CB@keep.pt>)(553=528b6f55)(556=653)
+  (550=2f07a1)(551=3082145)>
+{1:^BB {(k^BC:c)(s=9)} 
+  [3(^83^552)(^82^C2)(^85^C3)(^81^540)(^84^543)(^86^553)(^BD^553)(^96^A3)
+    (^9E=653)(^9D^550)(^88=80)(^D0^551)(^89=1)]}
+
+@$${F{@
+@$$}F}@
+
+@$${10{@
+[-31:m(^9C=1dd)(^90=1dd)(^92^553)(^91=0)(^93=1)(^94=1)]
+
+<(54C=90)(554=64c)>
+{1:^80 {(k^97:c)(s=9)} 
+  [-1DD(^88=90)(^8B=0)(^82^C2)(^85^C3)(^81^540)(^83^552)(^84^543)(^86^553)
+    (^BD^553)(^96^A3)(^9E=653)(^9D^550)(^D0^551)(^89=1)(^87=64c)(^9B^94)
+    (^8F=1dd)(^BE=0)]}
+{-1DD:^80 {(k^98:c)(s=9)31:m } 1DD }
+{FFFFFFFD:^9A {(k^99:c)(s=9)} [-1DD(^95^540)]}
+<(55C=1384869718)(546=9)>[-1:^9F(^AC=1)(^AD=1)(^AE^81)(^88^82)(^A7^81)
+    (^AF^55C)(^B0=12)(^B1=1)(^B2=0)(^B3=0)(^B4=)(^B5^533)(^B6^531)(^B7^89)
+    (^A8^8A)(^BA=1dc)(^A1=9)(^A6=1dd)(^CB=1)(^A9=0)(^A4^55A)(^AA=0)
+    (^A2=2)(^DE=28)]
+{-1:^BB {(k^BC:c)(s=9)} }
+[-3:^BB]
+@$$}10}@
+
+@$${11{@
+[1:^9F(^BA=1dd)]
+@$$}11}@
+
+@$${12{@
+@$$}12}@
+
+@$${13{@
+<(55D=30aa)>[1DD:^80(^D1^55D)]
+@$$}13}@
+
+@$${14{@
+[-31:m(^9C=1dd)(^90=1dd)(^92=0)(^91=0)(^93=0)(^94=0)]
+{1:^80 {(k^97:c)(s=9)} -
+  [-1DD]}
+{-1DD:^80 {(k^98:c)(s=9)31:m } }
+{FFFFFFFD:^9A {(k^99:c)(s=9)} -1DD }
+<(55E=2d153e)>[-1:^9F(^AC=1)(^AD=1)(^AE^81)(^88^82)(^A7^81)(^AF^55C)
+    (^B0=12)(^B1=1)(^B2=0)(^B3=0)(^B4=)(^B5^533)(^B6^531)(^B7^89)(^A8^8A)
+    (^BA=1dd)(^A1=8)(^A6=1dd)(^CB=1)(^A9=0)(^A4^55E)(^AA=0)(^A2=1)(^DE=28)]
+@$$}14}@
+
+@$${15{@
+<(55F=29)>[1:^9F(^DE=29)]
+@$$}15}@
+
+@$${16{@
+@$$}16}@
+
+@$${17{@
+@$$}17}@
+
+@$${1C{@
+<(560=1135)>[1:^9F(^B6^560)]
+{-1:^C0 {(k^C1:c)(s=9)} }
+@$$}1C}@
