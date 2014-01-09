@@ -24,13 +24,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -74,6 +72,7 @@ public class Report {
 
 				command.remove(f.getAbsolutePath());
 				fitsOutput = fitsOutput.substring(fitsOutput.indexOf("<?xml"));
+				
 				
 				FitsOutput fitsOut = new FitsOutput(fitsOutput);
 
@@ -159,12 +158,18 @@ public class Report {
 				valid="";
 
 				if(fitsOut.getFileStatusElements()!=null){
+				  boolean found = false;
 					for(FitsMetadataElement fme : fitsOut.getFileStatusElements()){
 						if(fme.getName().equalsIgnoreCase("valid")){
 							valid = fme.getValue();
+							found=true;
 						}
 						if(!validationTools.contains(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")")){
 							validationTools.add(fme.getReportingToolName()+ " ("+fme.getReportingToolVersion()+")");
+						}
+						
+						if(found){
+						  break;
 						}
 					}
 				}
