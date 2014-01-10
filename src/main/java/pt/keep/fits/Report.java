@@ -258,10 +258,10 @@ public class Report {
 					}else{
 						es.setUnknownFormatStatus(es.getUnknownFormatStatus()+1);
 					}
-					if(!isEmpty(gt[3]) && !isEmpty(puid) && gt[3].equalsIgnoreCase(puid)){
+					if(!isEmpty(gt[3]) && !isEmpty(puid) && match(gt[3],puid)){
 						es.setRightPUIDStatus(es.getRightPUIDStatus()+1);
 						puidOK=true;
-					}else if(!isEmpty(gt[3]) && !isEmpty(puid) && !gt[3].equalsIgnoreCase(puid)){
+					}else if(!isEmpty(gt[3]) && !isEmpty(puid) && !match(gt[3],puid)){
 						es.setWrongPUIDStatus(es.getWrongPUIDStatus()+1);
 						puidKO=true;
 					}else{
@@ -457,7 +457,7 @@ public class Report {
 					Cell cell = row.createCell(cellnum++);
 					if(obj instanceof String){
 						if(fs.getGroundTruth()!=null && i>0 && i<5){
-							if(((String)obj)==null || ((String)obj).trim().equalsIgnoreCase("")){
+						  if(((String)obj)==null || ((String)obj).trim().equalsIgnoreCase("")){
 								if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equalsIgnoreCase("")){
 
 								}else{
@@ -465,7 +465,7 @@ public class Report {
 								}
 							}else if(fs.getGroundTruth()[i]==null || fs.getGroundTruth()[i].trim().equalsIgnoreCase("")){
 
-							}else if(((String)obj).equalsIgnoreCase(fs.getGroundTruth()[i])){
+							}else if(match(fs.getGroundTruth()[i],(String)obj)){
 								cell.setCellStyle(greenStyle);
 							}else{
 								cell.setCellStyle(redStyle);
@@ -495,7 +495,38 @@ public class Report {
 	}
 
 	
-	private boolean isEmpty(String s){
+	private boolean match(String neededValue, String string) {
+	 
+	  System.out.println("NEEDED:"+neededValue+" VALUE:"+string);
+	  System.out.println("TESTE;"+neededValue.contains(";"));
+	  if(neededValue.length()>10){
+	  int i = neededValue.charAt(9);
+	  int j = ";".charAt(0);
+	  System.out.println("I:"+i + " J:"+j);
+	  }
+	  if(neededValue.contains(";")){
+	    String[] possible = neededValue.split(";");
+	    boolean match = false;
+	    for(String s : possible){
+	      System.out.println("Validating "+s+" against "+string);
+	      if(s.trim().equalsIgnoreCase(string)){
+	        match=true;
+	        break;
+	      }
+	    }
+	    if(!match){
+	      match = neededValue.trim().equalsIgnoreCase(string);
+	    }
+	    System.out.println("MATCH1:"+match);
+	    return match;
+	  }else{
+	    System.out.println("MATCH2:"+neededValue.equalsIgnoreCase(string));
+	    return neededValue.equalsIgnoreCase(string);
+	  }
+  }
+
+
+  private boolean isEmpty(String s){
 		if(s==null || s.trim().equalsIgnoreCase("")){
 			return true;
 		}else{
