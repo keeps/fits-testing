@@ -415,7 +415,6 @@ public class Report {
 		}
 
 		for(Map.Entry<String, List<FileStat>> entry : fileStats.entrySet()){
-			System.out.println("Sheet:" + entry.getKey());
 			Sheet sheetExtension = wb.createSheet(entry.getKey());
 			rownum = 0;
 			row = sheetExtension.createRow(rownum++);
@@ -496,19 +495,10 @@ public class Report {
 
 	
 	private boolean match(String neededValue, String string) {
-	 
-	  System.out.println("NEEDED:"+neededValue+" VALUE:"+string);
-	  System.out.println("TESTE;"+neededValue.contains(";"));
-	  if(neededValue.length()>10){
-	  int i = neededValue.charAt(9);
-	  int j = ";".charAt(0);
-	  System.out.println("I:"+i + " J:"+j);
-	  }
 	  if(neededValue.contains(";")){
 	    String[] possible = neededValue.split(";");
 	    boolean match = false;
 	    for(String s : possible){
-	      System.out.println("Validating "+s+" against "+string);
 	      if(s.trim().equalsIgnoreCase(string)){
 	        match=true;
 	        break;
@@ -517,10 +507,8 @@ public class Report {
 	    if(!match){
 	      match = neededValue.trim().equalsIgnoreCase(string);
 	    }
-	    System.out.println("MATCH1:"+match);
 	    return match;
 	  }else{
-	    System.out.println("MATCH2:"+neededValue.equalsIgnoreCase(string));
 	    return neededValue.equalsIgnoreCase(string);
 	  }
   }
