@@ -534,7 +534,7 @@ public class Report {
 			for (int i=0; i<rowNum; i++){
 				Row row = ws.getRow(i);
 				if(row != null && row.getCell(0)!=null){
-					if(fileName.endsWith(row.getCell(0).getStringCellValue())){
+					if(fileName.replace("\\","").replace("/","").endsWith(row.getCell(0).getStringCellValue().replace("\\","").replace("/",""))){
 						t[0] = row.getCell(0)!=null?row.getCell(0).getStringCellValue():"";
 						t[1] = row.getCell(1)!=null?row.getCell(1).getStringCellValue():"";
 						t[2] = row.getCell(2)!=null?row.getCell(2).getStringCellValue():"";

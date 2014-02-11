@@ -50,7 +50,7 @@ public class CommandUtility {
 			// create and execute process
 			ProcessBuilder processBuilder = new ProcessBuilder(args);
 			processBuilder.directory(directory);
-			processBuilder.redirectErrorStream(true);
+			processBuilder.redirectErrorStream(false);
 			Process process = processBuilder.start();
 
 			// Get process output
