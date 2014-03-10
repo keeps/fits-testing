@@ -199,8 +199,9 @@ public class Report {
 
 				String[] gt = null;
 				if(groundTruth!=null){
-					gt = getGroundTruth(groundTruth, f.getAbsolutePath());
+					gt = getGroundTruth(groundTruth, f.getAbsolutePath(),corporaFolder);
 					fs.setGroundTruth(gt);
+					
 				}
 
 				ExtensionStat es = new ExtensionStat();
@@ -507,9 +508,17 @@ public class Report {
 	    if(!match){
 	      match = neededValue.trim().equalsIgnoreCase(string);
 	    }
+	    
+	    if(!match){
+	      System.out.println("Expected: "+ neededValue+", received: "+string);
+	    }
 	    return match;
 	  }else{
-	    return neededValue.equalsIgnoreCase(string);
+	    boolean match = neededValue.equalsIgnoreCase(string);
+	    if(!match){
+          System.out.println("Expected: "+ neededValue+", received: "+string);
+        }
+	    return match;
 	  }
   }
 
@@ -522,7 +531,7 @@ public class Report {
 		}
 	}
 
-	private String[] getGroundTruth(String groundFile, String fileName){
+	private String[] getGroundTruth(String groundFile, String fileName,File corporaDirectory){
 		String[] t = new String[5];
 		try{
 			File excel = new File(groundFile);
@@ -534,7 +543,9 @@ public class Report {
 			for (int i=0; i<rowNum; i++){
 				Row row = ws.getRow(i);
 				if(row != null && row.getCell(0)!=null){
-					if(fileName.replace("\\","").replace("/","").endsWith(row.getCell(0).getStringCellValue().replace("\\","").replace("/",""))){
+				  File f = new File(corporaDirectory,row.getCell(0).getStringCellValue());
+				  if(f.exists() && f.getAbsolutePath().equalsIgnoreCase(fileName)){
+					//if(fileName.replace("\\","").replace("/","").endsWith(row.getCell(0).getStringCellValue().replace("\\","").replace("/",""))){
 						t[0] = row.getCell(0)!=null?row.getCell(0).getStringCellValue():"";
 						t[1] = row.getCell(1)!=null?row.getCell(1).getStringCellValue():"";
 						t[2] = row.getCell(2)!=null?row.getCell(2).getStringCellValue():"";
